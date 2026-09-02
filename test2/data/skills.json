@@ -43,11 +43,11 @@
 		],
 		"jobSkills": [
 			{
-				"id": "prominence",
-				"name": "プロミネンス",
-				"kana": "ぷろみねんす",
-				"level": 40,
-				"description": "コンボ条件：トータルエクリプス\n効果：自身の周囲の敵に範囲攻撃＋MP回復"
+				"id": "shield_bash",
+				"name": "シールドバッシュ",
+				"kana": "しーるどばっしゅ",
+				"level": 10,
+				"description": "単体物理攻撃＋対象にスタン（行動不能）を付与"
 			},
 			{
 				"id": "royal_authority",
@@ -57,18 +57,18 @@
 				"description": "高威力攻撃（コンボ条件：ライオットソード）"
 			},
 			{
-				"id": "shield_bash",
-				"name": "シールドバッシュ",
-				"kana": "しーるどばっしゅ",
-				"level": 10,
-				"description": "単体物理攻撃＋対象にスタン（行動不能）を付与"
-			},
-			{
 				"id": "sentinel",
 				"name": "センチネル",
 				"kana": "せんちねる",
 				"level": 38,
 				"description": "一定時間、自身の被ダメージを大幅に軽減する防御アビリティ"
+			},
+			{
+				"id": "prominence",
+				"name": "プロミネンス",
+				"kana": "ぷろみねんす",
+				"level": 40,
+				"description": "コンボ条件：トータルエクリプス\n効果：自身の周囲の敵に範囲攻撃＋MP回復"
 			},
 			{
 				"id": "holy_spirit",
