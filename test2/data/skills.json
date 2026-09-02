@@ -6,48 +6,45 @@
 			{
 				"id": "fast_blade",
 				"name": "ファストブレード",
-				"kana": "ふぁすとぶれーど",
 				"level": 1,
-				"description": "単体物理攻撃（コンボの起点）",
+				"description": "対象に物理攻撃。\n威力：220",
 				"combo": [
-					"riot_blade"
+					"Riot_Blade"
 				]
 			},
 			{
-				"id": "riot_blade",
+				"id": "Fight_or_Flight",
+				"name": "ファイト・オア・フライト",
+				"level": 2,
+				"description": "一定時間、自身の与ダメージを25％上昇させる。\n効果時間：20秒\n追加効果：自身に「ゴアブレード実行可」を付与する。\n効果時間：30秒"
+			},
+			{
+				"id": "Riot_Blade",
 				"name": "ライオットソード",
-				"kana": "らいおっとそーど",
 				"level": 4,
-				"description": "コンボ条件：ファストブレード\n効果：MPを回復する",
-				"combo": [
-					"royal_authority"
-				]
-			},
-			{
-				"id": "total_eclipse",
-				"name": "トータルエクリプス",
-				"kana": "とーたるえくりぷす",
-				"level": 6,
-				"description": "自身の周囲の敵に範囲物理攻撃",
+				"description": "対象に物理攻撃。\n威力：170\nコンボ条件：ファストブレード\nコンボ時威力：330\nコンボボーナス：自身のMPを回復する。",
 				"combo": [
 					"prominence"
 				]
 			},
-			{
-				"id": "shield_lob",
-				"name": "シールドロブ",
-				"kana": "しーんどろぶ",
-				"level": 15,
-				"description": "遠距離物理攻撃（敵視を獲得する）"
-			}
-		],
-		"jobSkills": [
-			{
-				"id": "shield_bash",
+            {
+				"id": "Total_Eclipse",
+				"name": "トータルエクリプス",
+				"level": 6,
+				"description": "自身の周囲の敵に範囲物理攻撃。\n威力：120\n追加効果：敵視アップ"
+			},
+            {
+				"id": "Shield_Bash",
 				"name": "シールドバッシュ",
-				"kana": "しーるどばっしゅ",
-				"level": 10,
-				"description": "単体物理攻撃＋対象にスタン（行動不能）を付与"
+				"level": 15,
+				"description": "対象に物理攻撃。\n威力：100\n追加効果：対象をスタンさせる。\n効果時間：6秒"
+			},
+            {
+				"id": "prominence",
+				"name": "プロミネンス",
+				"kana": "ぷろみねんす",
+				"level": 40,
+				"description": "コンボ条件：トータルエクリプス\n効果：自身の周囲の敵に範囲攻撃+MP回復"
 			},
 			{
 				"id": "royal_authority",
@@ -57,18 +54,18 @@
 				"description": "高威力攻撃（コンボ条件：ライオットソード）"
 			},
 			{
+				"id": "shield_bash",
+				"name": "シールドバッシュ",
+				"kana": "しーるどばっしゅ",
+				"level": 10,
+				"description": "単体物理攻撃＋対象にスタン（行動不能）を付与"
+			},
+			{
 				"id": "sentinel",
 				"name": "センチネル",
 				"kana": "せんちねる",
 				"level": 38,
 				"description": "一定時間、自身の被ダメージを大幅に軽減する防御アビリティ"
-			},
-			{
-				"id": "prominence",
-				"name": "プロミネンス",
-				"kana": "ぷろみねんす",
-				"level": 40,
-				"description": "コンボ条件：トータルエクリプス\n効果：自身の周囲の敵に範囲攻撃＋MP回復"
 			},
 			{
 				"id": "holy_spirit",

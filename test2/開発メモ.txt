@@ -12,6 +12,3 @@ test2/
      │   └ main.js
      └ images/
          └ （スキルアイコンpng）
-
-
-chat gptでコードを作ってその調整や修正をgeminiでやって追加でインデントをtabキーで行うのをもう一つのgeminiに指示を出す。
