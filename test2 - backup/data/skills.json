@@ -1,0 +1,79 @@
+{
+	"paladin": {
+		"name": "ナイト",
+		"class": "タンク",
+		"classSkills": [
+			{
+				"id": "fast_blade",
+				"name": "ファストブレード",
+				"level": 1,
+				"description": "単体物理攻撃（コンボの起点）",
+				"combo": [
+					"riot_blade"
+				]
+			},
+			{
+				"id": "riot_blade",
+				"name": "ライオットソード",
+				"level": 4,
+				"description": "コンボ条件：ファストブレード\n効果：MPを回復する",
+				"combo": [
+					"royal_authority"
+				]
+			},
+			{
+				"id": "total_eclipse",
+				"name": "トータルエクリプス",
+				"level": 6,
+				"description": "自身の周囲の敵に範囲物理攻撃",
+				"combo": [
+					"prominence"
+				]
+			},
+			{
+				"id": "shield_lob",
+				"name": "シールドロブ",
+				"level": 15,
+				"description": "遠距離物理攻撃（敵視を獲得する）"
+			}
+		],
+		"jobSkills": [
+			{
+				"id": "prominence",
+				"name": "プロミネンス",
+				"level": 40,
+				"description": "コンボ条件：トータルエクリプス\n効果：自身の周囲の敵に範囲攻撃＋MP回復"
+			},
+			{
+				"id": "royal_authority",
+				"name": "ロイヤルアソリティ",
+				"level": 60,
+				"description": "コンボ条件：ライオットソード\n効果：高威力単体攻撃＋自身の攻撃強化バフ付与"
+			},
+			{
+				"id": "shield_bash",
+				"name": "シールドバッシュ",
+				"level": 10,
+				"description": "単体物理攻撃＋対象にスタン（行動不能）を付与"
+			},
+			{
+				"id": "sentinel",
+				"name": "センチネル",
+				"level": 38,
+				"description": "一定時間、自身の被ダメージを大幅に軽減する防御アビリティ"
+			},
+			{
+				"id": "holy_spirit",
+				"name": "ホーリースピリット",
+				"level": 64,
+				"description": "単体魔法攻撃（遠距離・近距離両用）"
+			},
+			{
+				"id": "requiescat",
+				"name": "レクイエスカット",
+				"level": 68,
+				"description": "単体物理攻撃＋一定時間魔法攻撃を無詠唱化・威力強化"
+			}
+		]
+	}
+}

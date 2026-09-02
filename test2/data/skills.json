@@ -1,0 +1,197 @@
+{
+	"paladin": {
+		"name": "ナイト",
+		"role": "タンク",
+		"classSkills": [
+			{
+				"id": "fast_blade",
+				"name": "ファストブレード",
+				"kana": "ふぁすとぶれーど",
+				"level": 1,
+				"description": "単体物理攻撃（コンボの起点）",
+				"combo": [
+					"riot_blade"
+				]
+			},
+			{
+				"id": "riot_blade",
+				"name": "ライオットソード",
+				"kana": "らいおっとそーど",
+				"level": 4,
+				"description": "コンボ条件：ファストブレード\n効果：MPを回復する",
+				"combo": [
+					"royal_authority"
+				]
+			},
+			{
+				"id": "total_eclipse",
+				"name": "トータルエクリプス",
+				"kana": "とーたるえくりぷす",
+				"level": 6,
+				"description": "自身の周囲の敵に範囲物理攻撃",
+				"combo": [
+					"prominence"
+				]
+			},
+			{
+				"id": "shield_lob",
+				"name": "シールドロブ",
+				"kana": "しーんどろぶ",
+				"level": 15,
+				"description": "遠距離物理攻撃（敵視を獲得する）"
+			}
+		],
+		"jobSkills": [
+			{
+				"id": "prominence",
+				"name": "プロミネンス",
+				"kana": "ぷろみねんす",
+				"level": 40,
+				"description": "コンボ条件：トータルエクリプス\n効果：自身の周囲の敵に範囲攻撃＋MP回復"
+			},
+			{
+				"id": "royal_authority",
+				"name": "ロイヤルアソリティ",
+				"kana": "ろいやるあそりてぃ",
+				"level": 26,
+				"description": "高威力攻撃（コンボ条件：ライオットソード）"
+			},
+			{
+				"id": "shield_bash",
+				"name": "シールドバッシュ",
+				"kana": "しーるどばっしゅ",
+				"level": 10,
+				"description": "単体物理攻撃＋対象にスタン（行動不能）を付与"
+			},
+			{
+				"id": "sentinel",
+				"name": "センチネル",
+				"kana": "せんちねる",
+				"level": 38,
+				"description": "一定時間、自身の被ダメージを大幅に軽減する防御アビリティ"
+			},
+			{
+				"id": "holy_spirit",
+				"name": "ホーリースピリット",
+				"kana": "ほーりーすぴりっと",
+				"level": 64,
+				"description": "単体魔法攻撃（遠距離・近距離両用）"
+			},
+			{
+				"id": "requiescat",
+				"name": "レクイエスカット",
+				"kana": "れくいえすかっと",
+				"level": 68,
+				"description": "単体物理攻撃＋一定時間魔法攻撃を無詠唱化・威力強化"
+			}
+		]
+	},
+	"warrior": {
+		"name": "戦士",
+		"role": "タンク",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"dark_knight": {
+		"name": "暗黒騎士",
+		"role": "タンク",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"gunbreaker": {
+		"name": "ガンブレイカー",
+		"role": "タンク",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"white_mage": {
+		"name": "白魔道士",
+		"role": "ヒーラー",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"scholar": {
+		"name": "学者",
+		"role": "ヒーラー",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"astrologian": {
+		"name": "占星術師",
+		"role": "ヒーラー",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"sage": {
+		"name": "賢者",
+		"role": "ヒーラー",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"monk": {
+		"name": "モンク",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"dragoon": {
+		"name": "竜騎士",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"ninja": {
+		"name": "忍者",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"samurai": {
+		"name": "侍",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"reaper": {
+		"name": "リーパー",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"bard": {
+		"name": "吟遊詩人",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"machinist": {
+		"name": "機工士",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"dancer": {
+		"name": "踊り子",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"black_mage": {
+		"name": "黒魔道士",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"summoner": {
+		"name": "召喚士",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	},
+	"red_mage": {
+		"name": "赤魔道士",
+		"role": "DPS",
+		"classSkills": [],
+		"jobSkills": []
+	}
+}

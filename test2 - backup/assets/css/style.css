@@ -1,0 +1,111 @@
+body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    font-family: system-ui, -apple-system, sans-serif;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* 画像と同じような質感の見出しデザイン */
+h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: normal;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+/* スキルグリッド */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.skill {
+    width: 90px;
+    padding: 8px;
+    text-align: center;
+    background-color: #242424;
+    border-radius: 6px;
+    border: 1px solid #333;
+    font-size: 12px;
+}
+
+.skill-name {
+    margin-top: 6px;
+    word-break: break-all;
+}
+
+/* アイコン設定 */
+.icon {
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
+    border: 1px solid #555;
+    border-radius: 6px;
+    object-fit: cover;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.icon:hover {
+    border-color: #4da6ff;
+}
+
+/* コンボ一覧 */
+#combo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.combo-item {
+    display: flex;
+    align-items: center;
+    background-color: #242424;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    overflow-x: auto;
+}
+
+.combo-icon:hover {
+    transform: scale(1.1);
+}
+
+.arrow {
+    margin: 0 12px;
+    font-size: 20px;
+    color: #888;
+}
+
+.no-data {
+    color: #888;
+    font-size: 14px;
+}
+
+/* スキル名とルビの設定 */
+.skill-name {
+    margin-top: 8px;
+    word-break: break-all;
+    line-height: 1.2;
+}
+
+ruby {
+    ruby-align: center;
+}
+
+rt {
+    font-size: 9px;
+    color: #aaa; /* ルビの文字を少し明るいグレーに */
+    font-weight: normal;
+}
