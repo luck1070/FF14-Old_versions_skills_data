@@ -1,0 +1,182 @@
+/* 基本スタイル */
+body {
+	background-color: #1a1a1a;
+	color: #e0e0e0;
+	font-family: system-ui, -apple-system, sans-serif;
+	padding: 20px;
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+h1, h2 {
+	border-bottom: 1px solid #444;
+	padding-bottom: 8px;
+	margin-top: 24px;
+}
+
+/* リンク全般 */
+a {
+	color: #4da6ff;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* 戻るリンク */
+.back-link {
+	display: inline-block;
+	margin-bottom: 12px;
+	font-size: 14px;
+}
+
+/* トップページのメインリンク（ボタン風装飾） */
+.main-link {
+	display: inline-block;
+	margin-top: 20px;
+	padding: 12px 24px;
+	font-size: 18px;
+	background-color: #222;
+	color: #4da6ff;
+	border: 1px solid #4da6ff;
+	border-radius: 6px;
+	font-weight: bold;
+	transition: background-color 0.2s, color 0.2s;
+}
+
+.main-link:hover {
+	background-color: #4da6ff;
+	color: #1a1a1a;
+	text-decoration: none;
+}
+
+/* ジョブ一覧（ロール別レイアウト） */
+.job-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.job-card {
+	display: inline-block;
+	padding: 8px 16px;
+	background-color: #222;
+	border: 1px solid #444;
+	border-radius: 6px;
+	font-size: 15px;
+}
+
+.job-card:hover {
+	border-color: #4da6ff;
+	background-color: #2a2a2a;
+	text-decoration: none;
+}
+
+/* スキル一覧（カード配置） */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 120px);
+	gap: 16px;
+}
+
+.skill {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+
+	width: 120px;
+	height: 260px; /* ← 固定高さにする（ここ重要） */
+
+	padding: 10px;
+	border: 1px solid #444;
+	background-color: #222;
+	border-radius: 6px;
+}
+
+/* アイコン設定 */
+.icon {
+	width: 64px;
+	height: 64px;
+	border-radius: 4px;
+	object-fit: cover;
+}
+
+/* スキル名とレベル */
+.skill-name {
+	margin-top: 6px;
+	font-size: 13px;
+	line-height: 1.3;
+	height: 36px;
+	word-break: break-all;
+}
+
+.skill-level {
+	font-size: 11px;
+	color: #aaa;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+/* ルビ（ふりがな） */
+ruby {
+	ruby-position: over;
+	ruby-align: center;
+}
+
+rt {
+	font-size: 9px;
+	color: #aaa;
+	font-weight: normal;
+}
+
+/* コンボ表示エリア */
+#combo-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 12px;
+}
+
+.combo-item {
+	display: flex;
+	align-items: center;
+	background-color: #222;
+	padding: 12px 16px;
+	border-radius: 6px;
+	border: 1px solid #444;
+	overflow-x: auto; /* スマホなどの横溢れ防止 */
+}
+
+.combo-icon {
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+.combo-icon:hover {
+	transform: scale(1.08);
+}
+
+.arrow {
+	margin: 0 12px;
+	font-size: 20px;
+	color: #888;
+	user-select: none;
+}
+
+.no-data {
+	color: #888;
+	font-size: 14px;
+}
+
+.skill-desc {
+	font-size: 12px;
+	color: #bbb;
+	line-height: 1.4;
+	white-space: pre-line;
+
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}

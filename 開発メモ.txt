@@ -1,0 +1,14 @@
+test2/
+ ├ index.html        ← トップ
+ ├ jobs.html         ← ジョブ一覧
+ ├ job-detail.html   ← 詳細
+ ├ data/
+ │   └ skills.json
+ └ assets/
+     ├ css/
+     │   └ style.css
+     ├ js/
+     │   ├ job-list.js
+     │   └ main.js
+     └ images/
+         └ （スキルアイコンpng）
