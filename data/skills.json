@@ -1,231 +1,327 @@
 {
-	"paladin": {
-		"name": "ナイト",
-		"role": "タンク",
-		"classSkills": [
-			{
-				"id": "fast_blade",
-				"name": "ファストブレード",
-				"level": 1,
-				"description": "対象に物理攻撃。\n威力：220",
-				"combo": [
-					"Riot_Blade"
-				]
-			},
-			{
-				"id": "Fight_or_Flight",
-				"name": "ファイト・オア・フライト",
-				"level": 2,
-				"description": "一定時間、自身の与ダメージを25％上昇させる。\n効果時間：20秒\n追加効果：自身に「ゴアブレード実行可」を付与する。\n効果時間：30秒"
-			},
-			{
-				"id": "Riot_Blade",
-				"name": "ライオットソード",
-				"level": 4,
-				"description": "対象に物理攻撃。\n威力：170\nコンボ条件：ファストブレード\nコンボ時威力：330\nコンボボーナス：自身のMPを回復する。",
-				"combo": [
-					"prominence"
-				]
-			},
-			{
-				"id": "Total_Eclipse",
-				"name": "トータルエクリプス",
-				"level": 6,
-				"description": "自身の周囲の敵に範囲物理攻撃。\n威力：120\n追加効果：敵視アップ"
-			},
-			{
-				"id": "Shield_Bash",
-				"name": "シールドバッシュ",
-				"level": 15,
-				"description": "対象に物理攻撃。\n威力：100\n追加効果：対象をスタンさせる。\n効果時間：6秒"
-			},
-			{
-				"id": "prominence",
-				"name": "プロミネンス",
-				"kana": "ぷろみねんす",
-				"level": 40,
-				"description": "コンボ条件：トータルエクリプス\n効果：自身の周囲の敵に範囲攻撃+MP回復"
-			},
-			{
-				"id": "royal_authority",
-				"name": "ロイヤルアソリティ",
-				"kana": "ろいやるあそりてぃ",
-				"level": 26,
-				"description": "高威力攻撃（コンボ条件：ライオットソード）"
-			},
-			{
-				"id": "shield_bash",
-				"name": "シールドバッシュ",
-				"kana": "しーるどばっしゅ",
-				"level": 10,
-				"description": "単体物理攻撃＋対象にスタン（行動不能）を付与"
-			},
-			{
-				"id": "sentinel",
-				"name": "センチネル",
-				"kana": "せんちねる",
-				"level": 38,
-				"description": "一定時間、自身の被ダメージを大幅に軽減する防御アビリティ"
-			},
-			{
-				"id": "holy_spirit",
-				"name": "ホーリースピリット",
-				"kana": "ほーりーすぴりっと",
-				"level": 64,
-				"description": "単体魔法攻撃（遠距離・近距離両用）"
-			},
-			{
-				"id": "requiescat",
-				"name": "レクイエスカット",
-				"kana": "れくいえすかっと",
-				"level": 68,
-				"description": "単体物理攻撃＋一定時間魔法攻撃を無詠唱化・威力強化"
-			}
-		],
-		"jobSkills": [
-			{
-				"id": "rampart",
-				"name": "ランパート",
-				"kana": "らんぱーと",
-				"level": 8,
-				"description": "被ダメージを軽減する防御スキル"
-			},
-			{
-				"id": "low_blow",
-				"name": "ロウブロウ",
-				"kana": "ろうぶろう",
-				"level": 12,
-				"description": "対象をスタンさせる"
-			},
-			{
-				"id": "interject",
-				"name": "インタージェクト",
-				"kana": "いんたーじぇくと",
-				"level": 18,
-				"description": "詠唱を中断させる"
-			},
-			{
-				"id": "reprisal",
-				"name": "リプライザル",
-				"kana": "りぷらいざる",
-				"level": 22,
-				"description": "周囲の敵の与ダメージを低下させる"
-			},
-			{
-				"id": "arms_length",
-				"name": "アームズレングス",
-				"kana": "あーむずれんぐす",
-				"level": 32,
-				"description": "攻撃した敵にスロウを付与"
-			}
-		]
-	},
-	"warrior": {
-		"name": "戦士",
-		"role": "タンク",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"dark_knight": {
-		"name": "暗黒騎士",
-		"role": "タンク",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"gunbreaker": {
-		"name": "ガンブレイカー",
-		"role": "タンク",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"white_mage": {
-		"name": "白魔道士",
-		"role": "ヒーラー",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"scholar": {
-		"name": "学者",
-		"role": "ヒーラー",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"astrologian": {
-		"name": "占星術師",
-		"role": "ヒーラー",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"sage": {
-		"name": "賢者",
-		"role": "ヒーラー",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"monk": {
-		"name": "モンク",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"dragoon": {
-		"name": "竜騎士",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"ninja": {
-		"name": "忍者",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"samurai": {
-		"name": "侍",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"reaper": {
-		"name": "リーパー",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"bard": {
-		"name": "吟遊詩人",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"machinist": {
-		"name": "機工士",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"dancer": {
-		"name": "踊り子",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"black_mage": {
-		"name": "黒魔道士",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"summoner": {
-		"name": "召喚士",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	},
-	"red_mage": {
-		"name": "赤魔道士",
-		"role": "DPS",
-		"classSkills": [],
-		"jobSkills": []
-	}
+    "paladin": {
+        "name": "ナイト",
+        "role": "タンク",
+        "classSkills": [
+            {
+                "id": "fast_blade",
+                "name": "ファストブレード",
+                "level": 1,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "対象に物理攻撃。\n威力：220",
+                "combo": [
+                    "riot_blade"
+                ]
+            },
+            {
+                "id": "fight_or_flight",
+                "name": "ファイト・オア・フライト",
+                "level": 2,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "一定時間、自身の与ダメージを25％上昇させる。\n効果時間：20秒"
+            },
+            {
+                "id": "riot_blade",
+                "name": "ライオットソード",
+                "level": 4,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "対象に物理攻撃。\n威力：170\nコンボ条件：ファストブレード\nコンボ時威力：330\nコンボボーナス：MP回復",
+                "combo": [
+                    "royal_authority"
+                ]
+            },
+            {
+                "id": "total_eclipse",
+                "name": "トータルエクリプス",
+                "level": 6,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "5m",
+                "description": "範囲物理攻撃。\n威力：120",
+                "combo": [
+                    "prominence"
+                ]
+            },
+            {
+                "id": "shield_bash",
+                "name": "シールドバッシュ",
+                "level": 10,
+                "type": "ogcd",
+                "recast": "25s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "対象に物理攻撃。\n威力：100\nスタン付与（6秒）"
+            },
+            {
+                "id": "royal_authority",
+                "name": "ロイヤルアソリティ",
+                "level": 26,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "高威力攻撃。\nコンボ条件：ライオットソード"
+            },
+            {
+                "id": "sentinel",
+                "name": "センチネル",
+                "level": 38,
+                "type": "ogcd",
+                "recast": "120s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "被ダメージ30％軽減（15秒）"
+            },
+            {
+                "id": "prominence",
+                "name": "プロミネンス",
+                "level": 40,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "5m",
+                "description": "範囲攻撃。\nコンボ時威力アップ"
+            },
+            {
+                "id": "cover",
+                "name": "かばう",
+                "level": 45,
+                "type": "ogcd",
+                "recast": "120s",
+                "mp_cost": 0,
+                "range": "10m",
+                "description": "味方のダメージを肩代わり"
+            },
+            {
+                "id": "hallowed_ground",
+                "name": "インビンシブル",
+                "level": 50,
+                "type": "ogcd",
+                "recast": "420s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "ダメージ無効（10秒）"
+            },
+            {
+                "id": "intervention",
+                "name": "インターベンション",
+                "level": 62,
+                "type": "ogcd",
+                "recast": "10s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "対象の被ダメ軽減"
+            },
+            {
+                "id": "holy_spirit",
+                "name": "ホーリースピリット",
+                "level": 64,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "25m",
+                "description": "魔法攻撃＋HP回復"
+            },
+            {
+                "id": "requiescat",
+                "name": "レクイエスカット",
+                "level": 68,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "25m",
+                "description": "魔法強化"
+            },
+            {
+                "id": "holy_sheltron",
+                "name": "ホーリーシェルトロン",
+                "level": 82,
+                "type": "ogcd",
+                "recast": "5s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "被ダメ軽減＋回復"
+            },
+            {
+                "id": "blade_of_honor",
+                "name": "ブレード・オブ・オナー",
+                "level": 100,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "5m",
+                "description": "高威力範囲魔法攻撃"
+            }
+        ],
+        "jobSkills": [
+            {
+                "id": "rampart",
+                "name": "ランパート",
+                "level": 8,
+                "type": "ogcd",
+                "recast": "90s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "被ダメ20％軽減（20秒）"
+            },
+            {
+                "id": "low_blow",
+                "name": "ロウブロウ",
+                "level": 12,
+                "type": "ogcd",
+                "recast": "25s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "スタン（5秒）"
+            },
+            {
+                "id": "interject",
+                "name": "インタージェクト",
+                "level": 18,
+                "type": "ogcd",
+                "recast": "30s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "詠唱中断"
+            },
+            {
+                "id": "reprisal",
+                "name": "リプライザル",
+                "level": 22,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "5m",
+                "description": "敵の与ダメ低下"
+            },
+            {
+                "id": "arms_length",
+                "name": "アームズレングス",
+                "level": 32,
+                "type": "ogcd",
+                "recast": "120s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "ノックバック無効＋スロウ付与"
+            }
+        ]
+    },
+    "warrior": {
+        "name": "戦士",
+        "role": "タンク",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "dark_knight": {
+        "name": "暗黒騎士",
+        "role": "タンク",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "gunbreaker": {
+        "name": "ガンブレイカー",
+        "role": "タンク",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "white_mage": {
+        "name": "白魔道士",
+        "role": "ヒーラー",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "scholar": {
+        "name": "学者",
+        "role": "ヒーラー",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "astrologian": {
+        "name": "占星術師",
+        "role": "ヒーラー",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "sage": {
+        "name": "賢者",
+        "role": "ヒーラー",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "monk": {
+        "name": "モンク",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "dragoon": {
+        "name": "竜騎士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "ninja": {
+        "name": "忍者",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "samurai": {
+        "name": "侍",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "reaper": {
+        "name": "リーパー",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "bard": {
+        "name": "吟遊詩人",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "machinist": {
+        "name": "機工士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "dancer": {
+        "name": "踊り子",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "black_mage": {
+        "name": "黒魔道士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "summoner": {
+        "name": "召喚士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "red_mage": {
+        "name": "赤魔道士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    }
 }
