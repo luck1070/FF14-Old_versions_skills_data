@@ -24,31 +24,57 @@ async function loadJobData(jobId) {
             return;
         }
 
-        // ジョブ名とロールタイトルの更新
-        const roleText = job.role || job.class || "ロール";
         document.getElementById("job-name").textContent = job.name;
 
+        // 各要素の取得
         const roleTitleEl = document.getElementById("role-title");
+        const classSkillListEl = document.getElementById("class-skill-list");
+        const jobTitleEl = document.getElementById("job-title");
+        const jobSkillListEl = document.getElementById("job-skill-list");
+        const magicTitleEl = document.getElementById("magic-title");
+        const magicSkillListEl = document.getElementById("magic-skill-list");
+
         if (roleTitleEl) {
-            roleTitleEl.textContent = `ロールスキル（${roleText}）`;
+            roleTitleEl.textContent = `ロールスキル（${job.role}）`;
         }
 
         const classSkills = job.classSkills || [];
         const jobSkills = job.jobSkills || [];
+        const magicSkills = job.magicSkills || [];
 
-        // スキルカード描画
-        renderSkills(classSkills, "class-skill-list");
-        renderSkills(jobSkills, "job-skill-list");
+        if (job.isMagic) {
+            // 魔法ジョブの場合：通常・ジョブスキル関連をすべて非表示、魔法を表示
+            if (roleTitleEl) roleTitleEl.style.display = "none";
+            if (classSkillListEl) classSkillListEl.style.display = "none";
+            if (jobTitleEl) jobTitleEl.style.display = "none";
+            if (jobSkillListEl) jobSkillListEl.style.display = "none";
+            
+            if (magicTitleEl) magicTitleEl.style.display = "block";
+            if (magicSkillListEl) magicSkillListEl.style.display = "grid";
 
-        // コンボ表示描画
-        renderCombos([...classSkills, ...jobSkills]);
+            renderSkills(magicSkills, "magic-skill-list", jobId);
+            renderCombos(magicSkills, jobId);
+        } else {
+            // 通常ジョブの場合：魔法スキル関連を非表示、通常・ジョブを表示
+            if (roleTitleEl) roleTitleEl.style.display = "block";
+            if (classSkillListEl) classSkillListEl.style.display = "grid";
+            if (jobTitleEl) jobTitleEl.style.display = "block";
+            if (jobSkillListEl) jobSkillListEl.style.display = "grid";
+
+            if (magicTitleEl) magicTitleEl.style.display = "none";
+            if (magicSkillListEl) magicSkillListEl.style.display = "none";
+
+            renderSkills(classSkills, "class-skill-list", jobId);
+            renderSkills(jobSkills, "job-skill-list", jobId);
+            renderCombos([...classSkills, ...jobSkills], jobId);
+        }
 
     } catch (err) {
         console.error("データの取得に失敗しました:", err);
     }
 }
 
-// HTMLエスケープ用ヘルパー関数
+// HTMLエスケープ
 function escapeHtml(str) {
     return String(str)
         .replace(/&/g, '&amp;')
@@ -58,8 +84,8 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
-// スキルカード描画関数
-function renderSkills(skills, containerId) {
+// ✅ スキルカード
+function renderSkills(skills, containerId, jobId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
@@ -69,52 +95,69 @@ function renderSkills(skills, containerId) {
         const div = document.createElement("div");
         div.className = "skill";
 
-        // kana / ruby 両方のキー名に対応
         const rubyText = skill.kana || skill.ruby;
         const nameHtml = rubyText
             ? `<ruby>${escapeHtml(skill.name)}<rt>${escapeHtml(rubyText)}</rt></ruby>`
             : escapeHtml(skill.name);
 
-        const levelText = skill.level ? `Lv.${skill.level}` : "";
+        const levelText = skill.level ? `習得Lv.${skill.level}` : "";
+
+        let typeLabel = "";
+        if (skill.type === "gcd") {
+            typeLabel = `<span class="type gcd">WS</span>`;
+        } else if (skill.type === "ogcd") {
+            typeLabel = `<span class="type ogcd">アビ</span>`;
+        }
+
+        const recastText = skill.recast ? `<span class="recast">CT:${skill.recast}</span>` : "";
+        const rangeText = skill.range ? `<div class="skill-extra">射程：${escapeHtml(skill.range)}</div>` : "";
+        const mpText = skill.mp_cost !== undefined ? `<div class="skill-extra">MP：${skill.mp_cost}</div>` : "";
+
+        const desc = escapeHtml(skill.description || "").replace(/\n/g, "<br>");
 
         div.innerHTML = `
-            <img src="assets/images/${skill.id}.png" 
-                class="icon" 
+            <img src="assets/images/${jobId}/${skill.id}.png"
+                class="icon"
                 alt="${escapeHtml(skill.name)}"
-                onerror="this.style.display='none'">
+                title="${escapeHtml(skill.name)}"
+                onerror="this.onerror=null; this.src='assets/images/common/${skill.id}.png'">
             <div class="skill-name">${nameHtml}</div>
             <div class="skill-level">${levelText}</div>
-            <div class="skill-desc">${escapeHtml(skill.description || "")}</div>
+
+            <div class="skill-meta">
+                ${typeLabel}
+                ${recastText}
+            </div>
+
+            ${rangeText}
+            ${mpText}
+
+            <div class="skill-desc">${desc}</div>
         `;
 
         container.appendChild(div);
     });
 }
 
-// コンボチェーン描画関数
-function renderCombos(allSkills) {
+// ✅ コンボ
+function renderCombos(allSkills, jobId) {
     const comboList = document.getElementById("combo-list");
     if (!comboList) return;
 
     comboList.innerHTML = "";
 
-    // 派生先として指定されているスキルIDを抽出（コンボの途中に位置するスキルを特定）
     const nonStarterSkillIds = new Set();
     allSkills.forEach(skill => {
-        if (skill.combo && Array.isArray(skill.combo)) {
-            skill.combo.forEach(nextId => nonStarterSkillIds.add(nextId));
+        if (skill.combo) {
+            skill.combo.forEach(id => nonStarterSkillIds.add(id));
         }
     });
 
     let hasCombo = false;
 
     allSkills.forEach(skill => {
-        // コンボの起点となるスキルからルートをたどる
         if (skill.combo && !nonStarterSkillIds.has(skill.id)) {
             hasCombo = true;
-
-            const comboDiv = document.createElement("div");
-            comboDiv.className = "combo-item";
 
             let chain = [skill];
             let current = skill;
@@ -122,7 +165,6 @@ function renderCombos(allSkills) {
 
             while (current.combo && current.combo.length > 0) {
                 const nextId = current.combo[0];
-
                 if (visited.has(nextId)) break;
 
                 const next = allSkills.find(s => s.id === nextId);
@@ -133,16 +175,15 @@ function renderCombos(allSkills) {
                 current = next;
             }
 
-            comboDiv.innerHTML = chain.map((s, i) => {
-                const levelText = s.level ? ` (Lv.${s.level})` : "";
-                const descText = s.description ? `\n${s.description}` : "";
+            const comboDiv = document.createElement("div");
+            comboDiv.className = "combo-item";
 
+            comboDiv.innerHTML = chain.map((s, i) => {
                 const icon = `
-                    <img src="assets/images/${s.id}.png"
+                    <img src="assets/images/${jobId}/${s.id}.png"
                         class="icon combo-icon"
-                        title="${escapeHtml(s.name + levelText + descText)}"
                         alt="${escapeHtml(s.name)}"
-                        onerror="this.style.display='none'">
+                        onerror="this.onerror=null; this.src='assets/images/common/${s.id}.png'; if(!this.complete){this.style.display='none'}">
                 `;
 
                 return i === 0 ? icon : `<span class="arrow">→</span>${icon}`;

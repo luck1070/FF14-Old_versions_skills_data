@@ -237,12 +237,374 @@
     "white_mage": {
         "name": "白魔道士",
         "role": "ヒーラー",
-        "classSkills": [],
-        "jobSkills": []
+        "isMagic": true,
+        "magicSkills": [
+            {
+                "id": "stone",
+                "name": "ストーン",
+                "level": 1,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に土属性魔法攻撃。\n威力：140"
+            },
+            {
+                "id": "cure",
+                "name": "ケアル",
+                "level": 2,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：500\n追加効果（発動確率15％）：次に詠唱するケアルラの消費ＭＰを0にする\n効果時間：15秒"
+            },
+            {
+                "id": "aero",
+                "name": "エアロ",
+                "level": 4,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に風属性魔法攻撃。\n威力：50\n追加効果：対象に風属性の継続ダメージを付与する\n威力：30\n効果時間：30秒"
+            },
+            {
+                "id": "medica",
+                "name": "メディカ",
+                "level": 10,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 900,
+                "range": "20m",
+                "description": "自身と周囲のパーティメンバーのＨＰを回復する。\n回復力：400"
+            },
+            {
+                "id": "raise",
+                "name": "レイズ",
+                "level": 12,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 2400,
+                "range": "30m",
+                "description": "対象を衰弱状態で蘇生する。"
+            },
+            {
+                "id": "stonera",
+                "name": "ストンラ",
+                "level": 18,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に土属性魔法攻撃。\n威力：190"
+            },
+            {
+                "id": "cure_ii",
+                "name": "ケアルラ",
+                "level": 30,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：800"
+            },
+            {
+                "id": "regen",
+                "name": "リジェネ",
+                "level": 35,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "30m",
+                "description": "対象のＨＰを継続回復する。\n回復力：250\n効果時間：18秒"
+            },
+            {
+                "id": "cure_iii",
+                "name": "ケアルガ",
+                "level": 40,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1500,
+                "range": "30m",
+                "description": "自身またはパーティメンバーひとりを対象とする。\n対象とその周囲のパーティメンバーのＨＰを回復する。\n回復力：600"
+            },
+            {
+                "id": "holyn",
+                "name": "ホーリー",
+                "level": 45,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "8m",
+                "description": "自身の周囲の敵に無属性範囲魔法攻撃。\n威力：140\n追加効果：対象をスタンさせる\n効果時間：4秒"
+            },
+            {
+                "id": "aerora",
+                "name": "エアロラ",
+                "level": 46,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に風属性魔法攻撃。\n威力：50\n追加効果：対象に風属性の継続ダメージを付与する\n威力：50\n効果時間：30秒"
+            },
+            {
+                "id": "medica_ii",
+                "name": "メディカラ",
+                "level": 50,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "20m",
+                "description": "自身と周囲のパーティメンバーのＨＰを回復する。\n回復力：250\n追加効果：対象のＨＰを継続回復する\n回復力：150\n効果時間：15秒"
+            },
+            {
+                "id": "heart_of_solace",
+                "name": "ハート・オブ・ソラス",
+                "level": 52,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：800\n追加効果：自身に「ブラッドリリー」を付与する\n発動条件：「ヒーリングリリー」"
+            },
+            {
+                "id": "stone_ga",
+                "name": "ストンガ",
+                "level": 54,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に土属性魔法攻撃。\n威力：220"
+            },
+            {
+                "id": "stone_ja",
+                "name": "ストンジャ",
+                "level": 64,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に土属性魔法攻撃。\n威力：260"
+            },
+            {
+                "id": "glare",
+                "name": "グレア",
+                "level": 72,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に無属性魔法攻撃。\n威力：290"
+            },
+            {
+                "id": "dia",
+                "name": "ディア",
+                "level": 72,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に無属性魔法攻撃。\n威力：85\n追加効果：対象に無属性の継続ダメージを付与する。\n威力：80\n効果時間：30秒"
+            },
+            {
+                "id": "heart_of_misery",
+                "name": "ハート・オブ・ミゼリ",
+                "level": 74,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "25m",
+                "description": "対象とその周囲の敵に無属性範囲魔法攻撃。\n威力：1400\n2体目以降の対象への威力は50％減少する。\n発動条件：「ブラッドリリー」3"
+            },
+            {
+                "id": "heart_of_rapture",
+                "name": "ハート・オブ・ラプチャー",
+                "level": 76,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "20m",
+                "description": "自身と周囲のパーティメンバーのＨＰを回復する。\n回復力：400\n追加効果：自身に「ブラッドリリー」を付与する\n発動条件：「ヒーリングリリー」"
+            },
+            {
+                "id": "glare_ga",
+                "name": "グレアガ",
+                "level": 82,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に無属性魔法攻撃。\n威力：350"
+            },
+            {
+                "id": "holy_ga",
+                "name": "ホーリガ",
+                "level": 82,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "8m",
+                "description": "自身の周囲の敵に無属性範囲魔法攻撃。\n威力：150\n追加効果：対象をスタンさせる\n効果時間：4秒"
+            },
+            {
+                "id": "glare_ja",
+                "name": "グレアジャ",
+                "level": 92,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象とその周囲の敵に無属性範囲魔法攻撃。\n威力：640\n2体目以降の対象への威力は40％減少する。\n発動条件：「グレアジャ実行可」効果中"
+            },
+            {
+                "id": "mediga",
+                "name": "メディガ",
+                "level": 96,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "20m",
+                "description": "自身と周囲のパーティメンバーのHPを回復する。\n回復力：250\n追加効果：対象のＨＰを継続回復する。\n回復力：175\n効果時間：15秒"
+            },
+            {
+                "id": "fluid_aura",
+                "name": "神速魔",
+                "level": 30,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "一定時間、自身のオートアタックの攻撃間隔と、魔法のキャストタイムとリキャストタイムを20％短縮させる。\n効果時間：15秒\n追加効果：自身に3スタックの「グレアジャ実行可」を付与する。\n効果時間：30秒"
+            },
+            {
+                "id": "aetherial_shift",
+                "name": "エーテリアルシフト",
+                "level": 40,
+                "type": "ogcd",
+                "recast": "30s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "自身の15m前方に向かって素早く移動する。\nバインド中は実行不可。"
+            },
+            {
+                "id": "bene",
+                "name": "ベネディクション",
+                "level": 50,
+                "type": "ogcd",
+                "recast": "180s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "対象のＨＰを全回復する。"
+            },
+            {
+                "id": "asylum",
+                "name": "アサイラム",
+                "level": 52,
+                "type": "ogcd",
+                "recast": "90s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "指定した地面を中心にヒールエリアを生成する。\n効果時間中、範囲内にいる自身およびパーティメンバーを継続回復する。\n回復力：100\n効果時間：24秒\n追加効果：範囲内にいる自身およびパーティメンバーの受けるＨＰ回復効果が10％上昇する"
+            },
+            {
+                "id": "assize",
+                "name": "アサイズ",
+                "level": 56,
+                "type": "ogcd",
+                "recast": "45s",
+                "mp_cost": 0,
+                "range": "15m",
+                "description": "自身の周囲の敵に無属性範囲魔法攻撃。\n威力：400\n追加効果：自身と周囲のパーティメンバーのＨＰを回復する\n回復力：400\n追加効果：自身のＭＰを最大ＭＰの5％分回復する。"
+            },
+            {
+                "id": "thin_air",
+                "name": "シンエアー",
+                "level": 58,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "効果時間中に実行する1回のアクションについて、ＭＰ消費を100％軽減させる。\n効果時間：12秒\n最大チャージ数：2"
+            },
+            {
+                "id": "tetragrammaton",
+                "name": "テトラグラマトン",
+                "level": 60,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：700\n最大チャージ数：2"
+            },
+            {
+                "id": "divine_benison",
+                "name": "ディヴァインベニゾン",
+                "level": 66,
+                "type": "ogcd",
+                "recast": "30s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "自身またはパーティメンバーひとりを対象として、一定量のダメージを防ぐバリアを張る。\nこのバリアは回復力500相当のダメージを軽減する。\n効果時間：15秒\n最大チャージ数：2"
+            },
+            {
+                "id": "indomitable",
+                "name": "インドゥルゲンティア",
+                "level": 70,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "一定時間、自身と周囲のパーティメンバーの被ダメージを10％軽減させる。\n効果時間：10秒\nさらに、この効果を付与した対象に、自身がメディカ、ケアルガ、メディガ、ハート・オブ・ラプチャーによる回復効果を発動すると、対象に追加の回復効果を発動する。\n回復力：200"
+            },
+            {
+                "id": "potted_flow",
+                "name": "テンパランス",
+                "level": 80,
+                "type": "ogcd",
+                "recast": "120s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "一定時間、自身の回復魔法の回復量を20％上昇させ、自身と周囲50m以内にいるパーティメンバーの被ダメージを10％軽減する。\n効果時間：20秒\n追加効果：自身に「ディヴァインカレス実行可」を付与する。\n効果時間：30秒"
+            },
+            {
+                "id": "aquaveil",
+                "name": "アクアヴェール",
+                "level": 86,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "自身またはパーティメンバーひとりを対象とする。\n対象の被ダメージを15％軽減する。\n効果時間：8秒"
+            },
+            {
+                "id": "liturgy_of_the_bell",
+                "name": "リタージー・オブ・ベル",
+                "level": 90,
+                "type": "ogcd",
+                "recast": "180s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "指定した地面に「リタージー・オブ・ベル」を設置し、自身に5スタックの「リタージー・オブ・ベル」を付与する。\n効果時間：20秒\nリタージー・オブ・ベルの効果時間中に自身がダメージを受けると、スタックを1つ消費してリタージー・オブ・ベルの周囲20m以内にいる自身およびパーティメンバーを回復する。\n回復力：400\nこの効果は、発動後1秒間は再発動しない。\nリタージー・オブ・ベルの効果時間が経過するか効果時間中に再使用すると、残りスタック数に応じた回復効果が発動して消滅する。\n回復力：200×残りスタック数"
+            },
+            {
+                "id": "divine_caress",
+                "name": "ディヴァインカレス",
+                "level": 100,
+                "type": "ogcd",
+                "recast": "20s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "自身と周囲のパーティメンバーに、一定量のダメージを防ぐバリアを張る。\nバリア量：回復力400相当\n効果時間：10秒\n追加効果：バリア効果が終了すると、対象に「ディヴァインカレス［回］」を付与する。\nディヴァインカレス［回］効果：対象のＨＰを継続回復する。\n回復力：200\n効果時間：15秒\n発動条件：「ディヴァインカレス実行可」効果中"
+            }
+        ]
     },
     "scholar": {
         "name": "学者",
         "role": "ヒーラー",
+        "isMagic": true,
         "classSkills": [],
         "jobSkills": []
     },
