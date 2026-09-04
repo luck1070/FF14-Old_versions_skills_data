@@ -1,79 +1,1094 @@
 {
-	"paladin": {
-		"name": "ナイト",
-		"class": "タンク",
-		"classSkills": [
-			{
-				"id": "fast_blade",
-				"name": "ファストブレード",
-				"level": 1,
-				"description": "単体物理攻撃（コンボの起点）",
-				"combo": [
-					"riot_blade"
-				]
-			},
-			{
-				"id": "riot_blade",
-				"name": "ライオットソード",
-				"level": 4,
-				"description": "コンボ条件：ファストブレード\n効果：MPを回復する",
-				"combo": [
-					"royal_authority"
-				]
-			},
-			{
-				"id": "total_eclipse",
-				"name": "トータルエクリプス",
-				"level": 6,
-				"description": "自身の周囲の敵に範囲物理攻撃",
-				"combo": [
-					"prominence"
-				]
-			},
-			{
-				"id": "shield_lob",
-				"name": "シールドロブ",
-				"level": 15,
-				"description": "遠距離物理攻撃（敵視を獲得する）"
-			}
-		],
-		"jobSkills": [
-			{
-				"id": "prominence",
-				"name": "プロミネンス",
-				"level": 40,
-				"description": "コンボ条件：トータルエクリプス\n効果：自身の周囲の敵に範囲攻撃＋MP回復"
-			},
-			{
-				"id": "royal_authority",
-				"name": "ロイヤルアソリティ",
-				"level": 60,
-				"description": "コンボ条件：ライオットソード\n効果：高威力単体攻撃＋自身の攻撃強化バフ付与"
-			},
-			{
-				"id": "shield_bash",
-				"name": "シールドバッシュ",
-				"level": 10,
-				"description": "単体物理攻撃＋対象にスタン（行動不能）を付与"
-			},
-			{
-				"id": "sentinel",
-				"name": "センチネル",
-				"level": 38,
-				"description": "一定時間、自身の被ダメージを大幅に軽減する防御アビリティ"
-			},
-			{
-				"id": "holy_spirit",
-				"name": "ホーリースピリット",
-				"level": 64,
-				"description": "単体魔法攻撃（遠距離・近距離両用）"
-			},
-			{
-				"id": "requiescat",
-				"name": "レクイエスカット",
-				"level": 68,
-				"description": "単体物理攻撃＋一定時間魔法攻撃を無詠唱化・威力強化"
-			}
-		]
-	}
+    "paladin": {
+        "name": "ナイト",
+        "role": "タンク",
+        "classSkills": [
+            {
+                "id": "fast_blade",
+                "name": "ファストブレード",
+                "level": 1,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "対象に物理攻撃。\n威力：220",
+                "combo": [
+                    "riot_blade"
+                ]
+            },
+            {
+                "id": "fight_or_flight",
+                "name": "ファイト・オア・フライト",
+                "level": 2,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "一定時間、自身の与ダメージを25％上昇させる。\n効果時間：20秒"
+            },
+            {
+                "id": "riot_blade",
+                "name": "ライオットソード",
+                "level": 4,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "対象に物理攻撃。\n威力：170\nコンボ条件：ファストブレード\nコンボ時威力：330\nコンボボーナス：MP回復",
+                "combo": [
+                    "royal_authority"
+                ]
+            },
+            {
+                "id": "total_eclipse",
+                "name": "トータルエクリプス",
+                "level": 6,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "5m",
+                "description": "範囲物理攻撃。\n威力：120",
+                "combo": [
+                    "prominence"
+                ]
+            },
+            {
+                "id": "shield_bash",
+                "name": "シールドバッシュ",
+                "level": 10,
+                "type": "ogcd",
+                "recast": "25s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "対象に物理攻撃。\n威力：100\nスタン付与（6秒）"
+            },
+            {
+                "id": "royal_authority",
+                "name": "ロイヤルアソリティ",
+                "level": 26,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "高威力攻撃。\nコンボ条件：ライオットソード"
+            },
+            {
+                "id": "sentinel",
+                "name": "センチネル",
+                "level": 38,
+                "type": "ogcd",
+                "recast": "120s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "被ダメージ30％軽減（15秒）"
+            },
+            {
+                "id": "prominence",
+                "name": "プロミネンス",
+                "level": 40,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "5m",
+                "description": "範囲攻撃。\nコンボ時威力アップ"
+            },
+            {
+                "id": "cover",
+                "name": "かばう",
+                "level": 45,
+                "type": "ogcd",
+                "recast": "120s",
+                "mp_cost": 0,
+                "range": "10m",
+                "description": "味方のダメージを肩代わり"
+            },
+            {
+                "id": "hallowed_ground",
+                "name": "インビンシブル",
+                "level": 50,
+                "type": "ogcd",
+                "recast": "420s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "ダメージ無効（10秒）"
+            },
+            {
+                "id": "intervention",
+                "name": "インターベンション",
+                "level": 62,
+                "type": "ogcd",
+                "recast": "10s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "対象の被ダメ軽減"
+            },
+            {
+                "id": "holy_spirit",
+                "name": "ホーリースピリット",
+                "level": 64,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "25m",
+                "description": "魔法攻撃＋HP回復"
+            },
+            {
+                "id": "requiescat",
+                "name": "レクイエスカット",
+                "level": 68,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "25m",
+                "description": "魔法強化"
+            },
+            {
+                "id": "holy_sheltron",
+                "name": "ホーリーシェルトロン",
+                "level": 82,
+                "type": "ogcd",
+                "recast": "5s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "被ダメ軽減＋回復"
+            },
+            {
+                "id": "blade_of_honor",
+                "name": "ブレード・オブ・オナー",
+                "level": 100,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "5m",
+                "description": "高威力範囲魔法攻撃"
+            }
+        ],
+        "jobSkills": [
+            {
+                "id": "rampart",
+                "name": "ランパート",
+                "level": 8,
+                "type": "ogcd",
+                "recast": "90s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "被ダメ20％軽減（20秒）"
+            },
+            {
+                "id": "low_blow",
+                "name": "ロウブロウ",
+                "level": 12,
+                "type": "ogcd",
+                "recast": "25s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "スタン（5秒）"
+            },
+            {
+                "id": "interject",
+                "name": "インタージェクト",
+                "level": 18,
+                "type": "ogcd",
+                "recast": "30s",
+                "mp_cost": 0,
+                "range": "3m",
+                "description": "詠唱中断"
+            },
+            {
+                "id": "reprisal",
+                "name": "リプライザル",
+                "level": 22,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "5m",
+                "description": "敵の与ダメ低下"
+            },
+            {
+                "id": "arms_length",
+                "name": "アームズレングス",
+                "level": 32,
+                "type": "ogcd",
+                "recast": "120s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "ノックバック無効＋スロウ付与"
+            }
+        ]
+    },
+    "warrior": {
+        "name": "戦士",
+        "role": "タンク",
+        "classSkills":[
+                {
+                    "id": "Heavy_Swing",
+                    "name": "ヘヴィスイング",
+                    "level": 1,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象に物理攻撃。\n威力：240",
+                    "combo": ["Maim"]
+                },
+                {
+                    "id": "Maim",
+                    "name": "メイム",
+                    "level": 4,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象に物理攻撃。\n威力：190\nコンボ条件：ヘヴィスイング\nコンボ時威力：340\nコンボボーナス：「インナービースト」を10上昇させる。",
+                    "combo": ["Storm's_Path", "Storm's_Eye"]
+                },
+                {
+                    "id": "Berserk",
+                    "name": "バーサク",
+                    "level": 6,
+                    "type": "ogcd",
+                    "recast": "60s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身に3スタックの「バーサク」を付与する。\n効果時間：15秒\nバーサク効果：一定時間、自身のウェポンスキルによる攻撃が必ずクリティカルヒットかつダイレクトヒットする。\nクリティカルヒットやダイレクトヒットの発動率を上昇させる効果を受けている場合は与ダメージが上昇する。\n追加効果：「戦嵐」の効果時間を10秒延長する。\n最大60秒まで延長することができる。"
+                },
+                {
+                    "id": "Overpower",
+                    "name": "オーバーパワー",
+                    "level": 10,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身の周囲の敵に範囲物理攻撃。\n威力：110\n追加効果：敵視アップ",
+                    "combo": ["Mythril_Tempest"]
+                },
+                {
+                    "id": "Defiance",
+                    "name": "ディフェンダー",
+                    "level": 10,
+                    "type": "ogcd",
+                    "recast": "2s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "戦闘中の敵から自身に向けられる敵視を非常に大きく上昇させる。\n再使用で解除する。\n効果時間：永続"
+                },
+                {
+                    "id": "Release_Defiance",
+                    "name": "ディフェンダー解除",
+                    "level": 10,
+                    "type": "ogcd",
+                    "recast": "1s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "ディフェンダーを解除する。"
+                },
+                {
+                    "id": "Tomahawk",
+                    "name": "トマホーク",
+                    "level": 15,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "20m",
+                    "description": "対象に遠隔物理攻撃。\n威力：150\n追加効果：敵視アップ"
+                },
+                {
+                    "id": "Storm's_Path",
+                    "name": "シュトルムヴィント",
+                    "level": 26,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象に物理攻撃。\n威力：220\nコンボ条件：メイム\nコンボ時威力：500\nコンボボーナス：自身のＨＰを回復する。\n回復力：250\nコンボボーナス：「インナービースト」を20上昇させる。"
+                },
+                {
+                    "id": "Thrill_of_Battle",
+                    "name": "スリル・オブ・バトル",
+                    "level": 30,
+                    "type": "ogcd",
+                    "recast": "90s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "一定時間、自身の最大ＨＰを20％上昇させる。\nさらに、自身が受けるＨＰ回復効果を20％上昇させる。\n実行した時点での最大ＨＰの20％分のＨＰを回復する。\n効果時間：10秒"
+                },
+                {
+                    "id": "Inner_Beast",
+                    "name": "原初の魂",
+                    "level": 35,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象に物理攻撃。\n威力：330\n発動条件：「インナービースト」50"
+                },
+                {
+                    "id": "Vengeance",
+                    "name": "ヴェンジェンス",
+                    "level": 38,
+                    "type": "ogcd",
+                    "recast": "120s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "一定時間、自身の被ダメージを30％軽減させ、かつ自身が物理攻撃を受けた場合に、反撃ダメージを与える。\n威力：55\n効果時間：15秒"
+                },
+                {
+                    "id": "Mythril_Tempest",
+                    "name": "ミスリルテンペスト",
+                    "level": 40,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身の周囲の敵に範囲物理攻撃。\n威力：100\nコンボ条件：オーバーパワー\nコンボ時威力：140\n追加効果：敵視アップ\nコンボボーナス：自身に「戦嵐」を付与する。\n効果時間：30秒\n戦嵐効果：自身の与ダメージを10％上昇させる。\n既に「戦嵐」が付与されている場合は、その効果時間を30秒延長する。\n最大60秒まで延長することができる。\nコンボボーナス：「インナービースト」を20上昇させる。"
+                },
+                {
+                    "id": "Holmgang",
+                    "name": "ホルムギャング",
+                    "level": 42,
+                    "type": "ogcd",
+                    "recast": "240s",
+                    "mp_cost": 0,
+                    "range": "6m",
+                    "description": "効果時間中、自身は一部を除くすべての攻撃に対してＨＰが1より減ることがなくなる。\n敵を対象として実行した場合は、対象の移動を封じる。\n効果時間：10秒"
+                },
+                {
+                    "id": "Steel_Cyclone",
+                    "name": "スチールサイクロン",
+                    "level": 45,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身の周囲の敵に範囲物理攻撃。\n威力：160\n発動条件：「インナービースト」50"
+                },
+                {
+                    "id": "Storm's_Eye",
+                    "name": "シュトルムブレハ",
+                    "level": 50,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象に物理攻撃。\n威力：220\nコンボ条件：メイム\nコンボ時威力：500\nコンボボーナス：自身に「戦嵐」を付与する。\n効果時間：30秒\n戦嵐効果：自身の与ダメージを10％上昇させる。\n既に「戦嵐」が付与されている場合は、その効果時間を30秒延長する。\n最大60秒まで延長することができる。\nコンボボーナス：「インナービースト」を10上昇させる。"
+                },
+                {
+                    "id": "Infuriate",
+                    "name": "ウォークライ",
+                    "level": 50,
+                    "type": "ogcd",
+                    "recast": "60s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "「インナービースト」を50上昇させる。\n追加効果：自身に「原初の混沌」を付与する。\n効果時間：30秒\n原初の混沌効果：「インナービースト」が50以上蓄積されている場合、デシメートがカオティックサイクロンに、フェルクリーヴがインナーカオスに変化する。\n最大チャージ数：2\n発動条件：自身が戦闘状態"
+                },
+                {
+                    "id": "Fell_Cleave",
+                    "name": "フェルクリーヴ",
+                    "level": 54,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象に物理攻撃。\n威力：580\n「原初の混沌」効果中かつ「インナービースト」が50以上蓄積されている場合はインナーカオスに変化する。\n発動条件：「インナービースト」50"
+                },
+                {
+                    "id": "Raw_Intuition",
+                    "name": "原初の直感",
+                    "level": 56,
+                    "type": "ogcd",
+                    "recast": "25s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "一定時間、自身の被ダメージを10％軽減させる。\n効果時間：6秒\n追加効果：自身のウェポンスキルによる攻撃が命中すると自身のＨＰを回復する。\n回復力：400\nリキャストタイマーを「原初の猛り」と共有する。"
+                },
+                {
+                    "id": "Equilibrium",
+                    "name": "エクリブリウム",
+                    "level": 58,
+                    "type": "ogcd",
+                    "recast": "60s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身のＨＰを回復する。\n回復力：1200\n追加効果：自身のＨＰを継続回復する。\n回復力：200\n効果時間：15秒"
+                },
+                {
+                    "id": "Decimate",
+                    "name": "デシメート",
+                    "level": 60,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身の周囲の敵に範囲物理攻撃。\n威力：180\n「原初の混沌」効果中かつ「インナービースト」が50以上蓄積されている場合はカオティックサイクロンに変化する。\n発動条件：「インナービースト」50"
+                },
+                {
+                    "id": "Onslaught",
+                    "name": "オンスロート",
+                    "level": 62,
+                    "type": "ogcd",
+                    "recast": "30s",
+                    "mp_cost": 0,
+                    "range": "20m",
+                    "description": "対象に急接近して物理攻撃。\n威力：150\n最大チャージ数：3\nバインド中は実行不可。"
+                },
+                {
+                    "id": "Upheaval",
+                    "name": "アップヒーバル",
+                    "level": 64,
+                    "type": "ogcd",
+                    "recast": "30s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象に物理攻撃。\n威力：420\nリキャストタイマーを「オロジェネシス」と共有する。"
+                },
+                {
+                    "id": "Shake_It_Off",
+                    "name": "シェイクイットオフ",
+                    "level": 68,
+                    "type": "ogcd",
+                    "recast": "90s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身と周囲のパーティメンバーに、一定量のダメージを防ぐバリアを張る。\nこのバリアは対象の最大ＨＰの15％分のダメージを軽減する。\nまた、自身に「スリル・オブ・バトル」「ダムネーション」「原初の血気」のステータスが付与されている場合、それらを解除するとともにバリアの効果量を2％ずつ上昇させる。\n効果時間：30秒\n追加効果：対象のＨＰを継続回復する。\n回復力：100\n効果時間：15秒\n追加効果：対象のＨＰを回復する。\n回復力：300"
+                },
+                {
+                    "id": "Inner_Release",
+                    "name": "原初の解放",
+                    "level": 70,
+                    "type": "ogcd",
+                    "recast": "60s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身に3スタックの「原初の解放」を付与する。\n効果時間：15秒\n原初の解放効果：インナービーストを消費することなくフェルクリーヴとデシメートを実行することができるようになり、さらに必ずクリティカルヒットかつダイレクトヒットする。\nクリティカルヒットやダイレクトヒットの発動率を上昇させる効果を受けている場合は与ダメージが上昇する。\n追加効果：自身に「原初の覚悟」を付与する。\n効果時間：15秒\n原初の覚悟効果：一定時間、スタン、睡眠、バインド、ヘヴィおよび一部を除く全てのノックバックと引き寄せの効果を無効化する。\n追加効果：「戦嵐」の効果時間を10秒延長する。\n最大60秒まで延長することができる。\n追加効果：自身に「プライマルレンド実行可」を付与する。\n効果時間：30秒\n追加効果：効果時間中にフェルクリーヴまたはデシメートを命中させると、自身に「原初の鼓動」が付与される。最大3スタックする。\n効果時間：30秒\n原初の鼓動が3スタック付与されると「原初の激震実行可」に変化し、原初の解放が原初の激震に変化する。"
+                },
+                {
+                    "id": "Chaotic_Cyclone",
+                    "name": "カオティックサイクロン",
+                    "level": 72,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身の周囲の敵に範囲物理攻撃。\n威力：200\nこのアクションは必ずクリティカルヒットかつダイレクトヒットする。\nクリティカルヒットやダイレクトヒットの発動率を上昇させる効果を受けている場合は与ダメージが上昇する。\n追加効果：ウォークライのリキャストタイムを5秒短縮する。\n実行時に「原初の混沌」の効果が切れる。\n発動条件：「原初の混沌」効果中かつ「インナービースト」50\n\n※このアクションはホットバーに登録することはできない。\n\n発動条件を満たすとデシメートがカオティックサイクロンに変化する。"
+                },
+                {
+                    "id": "Nascent_Flash",
+                    "name": "原初の猛り",
+                    "level": 76,
+                    "type": "ogcd",
+                    "recast": "25s",
+                    "mp_cost": 0,
+                    "range": "30m",
+                    "description": "パーティメンバーひとりを対象とする。\n自身に「原初の猛り」を付与し、対象には「原初の猛り［被］」を付与する。\n効果時間：8秒\n原初の猛り効果：自身のウェポンスキルによる攻撃が命中すると自身のＨＰを回復する。\n回復力：400\n原初の猛り［被］効果：戦士自身の回復量の100％分のＨＰを回復する。\nさらに、被ダメージを10％軽減する。\n追加効果：対象に「原初の血潮」を付与する。\n効果時間：4秒\n原初の血潮効果：対象の被ダメージを10％軽減する。\n追加効果：対象に一定量のダメージを防ぐバリアである「原初の血煙」を付与する。\nバリア量：回復力400相当\n効果時間：20秒\nリキャストタイマーを「原初の血気」と共有する。"
+                },
+                {
+                    "id": "Inner_Chaos",
+                    "name": "インナーカオス",
+                    "level": 80,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象に物理攻撃。\n威力：700\nこのアクションは必ずクリティカルヒットかつダイレクトヒットする。\nクリティカルヒットやダイレクトヒットの発動率を上昇させる効果を受けている場合は与ダメージが上昇する。\n追加効果：ウォークライのリキャストタイムを5秒短縮する。\n実行時に「原初の混沌」の効果が切れる。\n発動条件：「原初の混沌」効果中かつ「インナービースト」50\n\n※このアクションはホットバーに登録することはできない。\n\n発動条件を満たすとフェルクリーヴがインナーカオスに変化する。"
+                },
+                {
+                    "id": "Bloodwhetting",
+                    "name": "原初の血気",
+                    "level": 82,
+                    "type": "ogcd",
+                    "recast": "25s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "一定時間、自身の被ダメージを10％軽減させる。\n効果時間：8秒\n追加効果：自身のウェポンスキルによる攻撃が命中すると自身のＨＰを回復する。\n回復力：400\n追加効果：自身に「原初の血潮」を付与する。\n効果時間：4秒\n原初の血潮効果：自身の被ダメージを10％軽減する。\n追加効果：自身に一定量のダメージを防ぐバリアである「原初の血煙」を付与する。\nバリア量：回復力400相当\n効果時間：20秒\nリキャストタイマーを「原初の猛り」と共有する。"
+                },
+                {
+                    "id": "Orogeny",
+                    "name": "オロジェネシス",
+                    "level": 86,
+                    "type": "ogcd",
+                    "recast": "30s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身の周囲の敵に範囲物理攻撃。\n威力：150\nリキャストタイマーを「アップヒーバル」と共有する。"
+                },
+                {
+                    "id": "Primal_Rend",
+                    "name": "プライマルレンド",
+                    "level": 90,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "20m",
+                    "description": "対象に飛び掛かりつつ、対象とその周囲の敵に範囲物理攻撃。\n威力：720\n2体目以降の対象への威力は50％減少する。\nこのアクションは必ずクリティカルヒットかつダイレクトヒットする。\nクリティカルヒットやダイレクトヒットの発動率を上昇させる効果を受けている場合は与ダメージが上昇する。\n追加効果：自身に「ルイネーター実行可」を付与する。\n効果時間：20秒\n発動条件：原初の解放を実行することで付与される「プライマルレンド実行可」効果中\nバインド中は実行不可。"
+                },
+                {
+                    "id": "Damnation",
+                    "name": "ダムネーション",
+                    "level": 92,
+                    "type": "ogcd",
+                    "recast": "120s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "一定時間、自身の被ダメージを40％軽減させ、かつ自身が物理攻撃を受けた場合に、反撃ダメージを与える。\n威力：55\n効果時間：15秒\n追加効果：ダメージを受けるか、ダメージを受けることなく効果時間が経過すると、自身に「ダムネーション［被］」を付与する。\nダムネーション［被］効果：自身のＨＰを継続回復する。\n回復力：300\n効果時間：15秒"
+                },
+                {
+                    "id": "Primal_Wrath",
+                    "name": "原初の激震",
+                    "level": 96,
+                    "type": "ogcd",
+                    "recast": "1s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身の周囲の敵に範囲物理攻撃。\n威力：700\n2体目以降の対象への威力は50％減少する。\n発動条件：「原初の激震実行可」効果中\n\n※このアクションはホットバーに登録することはできない。\n\n発動条件を満たすと原初の解放が原初の激震に変化する。"
+                },
+                {
+                    "id": "Primal_Ruination",
+                    "name": "ルイネーター",
+                    "level": 100,
+                    "type": "gcd",
+                    "recast": "2.5s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象とその周囲の敵に範囲物理攻撃。\n威力：800\n2体目以降の対象への威力は50％減少する。\nこのアクションは必ずクリティカルヒットかつダイレクトヒットする。\nクリティカルヒットやダイレクトヒットの発動率を上昇させる効果を受けている場合は与ダメージが上昇する。\n発動条件：「ルイネーター実行可」効果中\n\n※このアクションはホットバーに登録することはできない。\n\n発動条件を満たすとプライマルレンドがルイネーターに変化する。"
+                }
+            ],
+        "jobSkills": [
+                {
+                    "id": "Rampart",
+                    "name": "ランパート",
+                    "level": 8,
+                    "type": "ogcd",
+                    "recast": "90s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "一定時間、自身の被ダメージを20％軽減させる。\nさらに、自身が受けるＨＰ回復効果を15％上昇させる。\n効果時間：20秒"
+                },
+                {
+                    "id": "Low_Blow",
+                    "name": "ロウブロウ",
+                    "level": 12,
+                    "type": "ogcd",
+                    "recast": "25s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象をスタンさせる。\n効果時間：5秒"
+                },
+                {
+                    "id": "Provoke",
+                    "name": "挑発",
+                    "level": 15,
+                    "type": "ogcd",
+                    "recast": "30s",
+                    "mp_cost": 0,
+                    "range": "25m",
+                    "description": "対象を挑発し、自身への敵視を最高位にしたうえで、さらに自身への敵視を上昇させる。"
+                },
+                {
+                    "id": "Interject",
+                    "name": "インタージェクト",
+                    "level": 18,
+                    "type": "ogcd",
+                    "recast": "30s",
+                    "mp_cost": 0,
+                    "range": "3m",
+                    "description": "対象のアクション詠唱を中断させる。"
+                },
+                {
+                    "id": "Reprisal",
+                    "name": "リプライザル",
+                    "level": 22,
+                    "type": "ogcd",
+                    "recast": "60s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "自身の周囲の敵の与ダメージを10％減少させる。\n効果時間：15秒"
+                },
+                {
+                    "id": "arms_length",
+                    "name": "アームズレングス",
+                    "level": 32,
+                    "type": "ogcd",
+                    "recast": "120s",
+                    "mp_cost": 0,
+                    "range": "0m",
+                    "description": "一定時間、一部を除くすべてのノックバックと引き寄せを無効化する。\n効果時間：6秒\n追加効果：効果中に自身が物理攻撃を受けると、攻撃者に20％スロウを付与する。\n効果時間：15秒"
+                },
+                {
+                    "id": "Shirk",
+                    "name": "シャーク",
+                    "level": 48,
+                    "type": "ogcd",
+                    "recast": "120s",
+                    "mp_cost": 0,
+                    "range": "25m",
+                    "description": "自身に向けられている敵視の25％を対象のパーティメンバーに移す。"
+                }
+        ]
+    },
+    "dark_knight": {
+        "name": "暗黒騎士",
+        "role": "タンク",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "gunbreaker": {
+        "name": "ガンブレイカー",
+        "role": "タンク",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "white_mage": {
+        "name": "白魔道士",
+        "role": "ヒーラー",
+        "isMagic": true,
+        "magicSkills": [
+            {
+                "id": "Stone",
+                "name": "ストーン",
+                "level": 1,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に土属性魔法攻撃。\n威力：140"
+            },
+            {
+                "id": "Cure",
+                "name": "ケアル",
+                "level": 2,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：500\n追加効果（発動確率15％）：次に詠唱するケアルラの消費ＭＰを0にする\n効果時間：15秒"
+            },
+            {
+                "id": "Aero",
+                "name": "エアロ",
+                "level": 4,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に風属性魔法攻撃。\n威力：50\n追加効果：対象に風属性の継続ダメージを付与する\n威力：30\n効果時間：30秒"
+            },
+            {
+                "id": "Medica",
+                "name": "メディカ",
+                "level": 10,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 900,
+                "range": "20m",
+                "description": "自身と周囲のパーティメンバーのＨＰを回復する。\n回復力：400"
+            },
+            {
+                "id": "Raise",
+                "name": "レイズ",
+                "level": 12,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 2400,
+                "range": "30m",
+                "description": "対象を衰弱状態で蘇生する。"
+            },
+            {
+                "id": "Stone_II",
+                "name": "ストンラ",
+                "level": 18,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に土属性魔法攻撃。\n威力：190"
+            },
+            {
+                "id": "Regen",
+                "name": "リジェネ",
+                "level": 35,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "30m",
+                "description": "対象のＨＰを継続回復する。\n回復力：250\n効果時間：18秒"
+            },
+            {
+                "id": "Cure_II",
+                "name": "ケアルラ",
+                "level": 30,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：800"
+            },
+            {
+                "id": "Cure_III",
+                "name": "ケアルガ",
+                "level": 40,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1500,
+                "range": "30m",
+                "description": "自身またはパーティメンバーひとりを対象とする。\n対象とその周囲のパーティメンバーのＨＰを回復する。\n回復力：600"
+            },
+            {
+                "id": "Holy",
+                "name": "ホーリー",
+                "level": 45,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "8m",
+                "description": "自身の周囲の敵に無属性範囲魔法攻撃。\n威力：140\n追加効果：対象をスタンさせる\n効果時間：4秒"
+            },
+            {
+                "id": "Aero_II",
+                "name": "エアロラ",
+                "level": 46,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に風属性魔法攻撃。\n威力：50\n追加効果：対象に風属性の継続ダメージを付与する\n威力：50\n効果時間：30秒"
+            },
+            {
+                "id": "Medica_II",
+                "name": "メディカラ",
+                "level": 50,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "20m",
+                "description": "自身と周囲のパーティメンバーのＨＰを回復する。\n回復力：250\n追加効果：対象のＨＰを継続回復する\n回復力：150\n効果時間：15秒"
+            },
+            {
+                "id": "Afflatus_Solace",
+                "name": "ハート・オブ・ソラス",
+                "level": 52,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：800\n追加効果：自身に「ブラッドリリー」を付与する\n発動条件：「ヒーリングリリー」"
+            },
+            {
+                "id": "Stone_III",
+                "name": "ストンガ",
+                "level": 54,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に土属性魔法攻撃。\n威力：220"
+            },
+            {
+                "id": "Stone_IV",
+                "name": "ストンジャ",
+                "level": 64,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に土属性魔法攻撃。\n威力：260"
+            },
+            {
+                "id": "Glare",
+                "name": "グレア",
+                "level": 72,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に無属性魔法攻撃。\n威力：290"
+            },
+            {
+                "id": "Dia",
+                "name": "ディア",
+                "level": 72,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に無属性魔法攻撃。\n威力：85\n追加効果：対象に無属性の継続ダメージを付与する。\n威力：80\n効果時間：30秒"
+            },
+            {
+                "id": "Afflatus_Misery",
+                "name": "ハート・オブ・ミゼリ",
+                "level": 74,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "25m",
+                "description": "対象とその周囲の敵に無属性範囲魔法攻撃。\n威力：1400\n2体目以降の対象への威力は50％減少する。\n発動条件：「ブラッドリリー」3"
+            },
+            {
+                "id": "Afflatus_Rapture",
+                "name": "ハート・オブ・ラプチャー",
+                "level": 76,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 0,
+                "range": "20m",
+                "description": "自身と周囲のパーティメンバーのＨＰを回復する。\n回復力：400\n追加効果：自身に「ブラッドリリー」を付与する\n発動条件：「ヒーリングリリー」"
+            },
+            {
+                "id": "Glare_III",
+                "name": "グレアガ",
+                "level": 82,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象に無属性魔法攻撃。\n威力：350"
+            },
+            {
+                "id": "Holy_III",
+                "name": "ホーリガ",
+                "level": 82,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "8m",
+                "description": "自身の周囲の敵に無属性範囲魔法攻撃。\n威力：150\n追加効果：対象をスタンさせる\n効果時間：4秒"
+            },
+            {
+                "id": "Glare_IV",
+                "name": "グレアジャ",
+                "level": 92,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 400,
+                "range": "25m",
+                "description": "対象とその周囲の敵に無属性範囲魔法攻撃。\n威力：640\n2体目以降の対象への威力は40％減少する。\n発動条件：「グレアジャ実行可」効果中"
+            },
+            {
+                "id": "Medica_III",
+                "name": "メディガ",
+                "level": 96,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "20m",
+                "description": "自身と周囲のパーティメンバーのHPを回復する。\n回復力：250\n追加効果：対象のＨＰを継続回復する。\n回復力：175\n効果時間：15秒"
+            },
+            {
+                "id": "Presence_of_Mind",
+                "name": "神速魔",
+                "level": 30,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "一定時間、自身のオートアタックの攻撃間隔と、魔法のキャストタイムとリキャストタイムを20％短縮させる。\n効果時間：15秒\n追加効果：自身に3スタックの「グレアジャ実行可」を付与する。\n効果時間：30秒"
+            },
+            {
+                "id": "Aetherial_Shift",
+                "name": "エーテリアルシフト",
+                "level": 40,
+                "type": "ogcd",
+                "recast": "30s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "自身の15m前方に向かって素早く移動する。\nバインド中は実行不可。"
+            },
+            {
+                "id": "Benediction",
+                "name": "ベネディクション",
+                "level": 50,
+                "type": "ogcd",
+                "recast": "180s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "対象のＨＰを全回復する。"
+            },
+            {
+                "id": "Asylum",
+                "name": "アサイラム",
+                "level": 52,
+                "type": "ogcd",
+                "recast": "90s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "指定した地面を中心にヒールエリアを生成する。\n効果時間中、範囲内にいる自身およびパーティメンバーを継続回復する。\n回復力：100\n効果時間：24秒\n追加効果：範囲内にいる自身およびパーティメンバーの受けるＨＰ回復効果が10％上昇する"
+            },
+            {
+                "id": "Assize",
+                "name": "アサイズ",
+                "level": 56,
+                "type": "ogcd",
+                "recast": "45s",
+                "mp_cost": 0,
+                "range": "15m",
+                "description": "自身の周囲の敵に無属性範囲魔法攻撃。\n威力：400\n追加効果：自身と周囲のパーティメンバーのＨＰを回復する\n回復力：400\n追加効果：自身のＭＰを最大ＭＰの5％分回復する。"
+            },
+            {
+                "id": "Thin_Air",
+                "name": "シンエアー",
+                "level": 58,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "効果時間中に実行する1回のアクションについて、ＭＰ消費を100％軽減させる。\n効果時間：12秒\n最大チャージ数：2"
+            },
+            {
+                "id": "Tetragrammaton",
+                "name": "テトラグラマトン",
+                "level": 60,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：700\n最大チャージ数：2"
+            },
+            {
+                "id": "Divine_Benison",
+                "name": "ディヴァインベニゾン",
+                "level": 66,
+                "type": "ogcd",
+                "recast": "30s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "自身またはパーティメンバーひとりを対象として、一定量のダメージを防ぐバリアを張る。\nこのバリアは回復力500相当のダメージを軽減する。\n効果時間：15秒\n最大チャージ数：2"
+            },
+            {
+                "id": "Plenary_Indulgence",
+                "name": "インドゥルゲンティア",
+                "level": 70,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "一定時間、自身と周囲のパーティメンバーの被ダメージを10％軽減させる。\n効果時間：10秒\nさらに、この効果を付与した対象に、自身がメディカ、ケアルガ、メディガ、ハート・オブ・ラプチャーによる回復効果を発動すると、対象に追加の回復効果を発動する。\n回復力：200"
+            },
+            {
+                "id": "Temperance",
+                "name": "テンパランス",
+                "level": 80,
+                "type": "ogcd",
+                "recast": "120s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "一定時間、自身の回復魔法の回復量を20％上昇させ、自身と周囲50m以内にいるパーティメンバーの被ダメージを10％軽減する。\n効果時間：20秒\n追加効果：自身に「ディヴァインカレス実行可」を付与する。\n効果時間：30秒"
+            },
+            {
+                "id": "Aquaveil",
+                "name": "アクアヴェール",
+                "level": 86,
+                "type": "ogcd",
+                "recast": "60s",
+                "mp_cost": 0,
+                "range": "30m",
+                "description": "自身またはパーティメンバーひとりを対象とする。\n対象の被ダメージを15％軽減する。\n効果時間：8秒"
+            },
+            {
+                "id": "Liturgy_of_the_Bell",
+                "name": "リタージー・オブ・ベル",
+                "level": 90,
+                "type": "ogcd",
+                "recast": "180s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "指定した地面に「リタージー・オブ・ベル」を設置し、自身に5スタックの「リタージー・オブ・ベル」を付与する。\n効果時間：20秒\nリタージー・オブ・ベルの効果時間中に自身がダメージを受けると、スタックを1つ消費してリタージー・オブ・ベルの周囲20m以内にいる自身およびパーティメンバーを回復する。\n回復力：400\nこの効果は、発動後1秒間は再発動しない。\nリタージー・オブ・ベルの効果時間が経過するか効果時間中に再使用すると、残りスタック数に応じた回復効果が発動して消滅する。\n回復力：200×残りスタック数"
+            },
+            {
+                "id": "Divine_Caress",
+                "name": "ディヴァインカレス",
+                "level": 100,
+                "type": "ogcd",
+                "recast": "20s",
+                "mp_cost": 0,
+                "range": "自身",
+                "description": "自身と周囲のパーティメンバーに、一定量のダメージを防ぐバリアを張る。\nバリア量：回復力400相当\n効果時間：10秒\n追加効果：バリア効果が終了すると、対象に「ディヴァインカレス［回］」を付与する。\nディヴァインカレス［回］効果：対象のＨＰを継続回復する。\n回復力：200\n効果時間：15秒\n発動条件：「ディヴァインカレス実行可」効果中"
+            }
+        ]
+    },
+    "scholar": {
+        "name": "学者",
+        "role": "ヒーラー",
+        "isMagic": true,
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "astrologian": {
+        "name": "占星術師",
+        "role": "ヒーラー",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "sage": {
+        "name": "賢者",
+        "role": "ヒーラー",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "monk": {
+        "name": "モンク",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "dragoon": {
+        "name": "竜騎士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "ninja": {
+        "name": "忍者",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "samurai": {
+        "name": "侍",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "reaper": {
+        "name": "リーパー",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "bard": {
+        "name": "吟遊詩人",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "machinist": {
+        "name": "機工士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "dancer": {
+        "name": "踊り子",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "black_mage": {
+        "name": "黒魔道士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "summoner": {
+        "name": "召喚士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    },
+    "red_mage": {
+        "name": "赤魔道士",
+        "role": "DPS",
+        "classSkills": [],
+        "jobSkills": []
+    }
 }
