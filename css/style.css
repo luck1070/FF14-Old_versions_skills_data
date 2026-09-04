@@ -227,3 +227,32 @@ rt {
 	color: #888;
 	font-size: 14px;
 }
+
+/* 並び替えコントロール */
+.skill-controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    background-color: #222;
+    padding: 10px 14px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.skill-controls label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.skill-controls select {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}

@@ -300,16 +300,6 @@
                 "description": "対象に土属性魔法攻撃。\n威力：190"
             },
             {
-                "id": "Cure_II",
-                "name": "ケアルラ",
-                "level": 30,
-                "type": "gcd",
-                "recast": "2.5s",
-                "mp_cost": 1000,
-                "range": "30m",
-                "description": "対象のＨＰを回復する。\n回復力：800"
-            },
-            {
                 "id": "Regen",
                 "name": "リジェネ",
                 "level": 35,
@@ -318,6 +308,16 @@
                 "mp_cost": 400,
                 "range": "30m",
                 "description": "対象のＨＰを継続回復する。\n回復力：250\n効果時間：18秒"
+            },
+            {
+                "id": "Cure_II",
+                "name": "ケアルラ",
+                "level": 30,
+                "type": "gcd",
+                "recast": "2.5s",
+                "mp_cost": 1000,
+                "range": "30m",
+                "description": "対象のＨＰを回復する。\n回復力：800"
             },
             {
                 "id": "Cure_III",
