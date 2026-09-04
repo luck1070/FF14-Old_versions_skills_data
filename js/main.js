@@ -1,66 +1,91 @@
 document.addEventListener("DOMContentLoaded", () => {
-	const params = new URLSearchParams(window.location.search);
-	const jobId = params.get("job");
+    const params = new URLSearchParams(window.location.search);
+    const jobId = params.get("job");
 
-	if (!jobId) {
-		console.log("job未指定");
-	} else {
-		loadJobData(jobId);
-	}
+    if (!jobId) {
+        console.log("job未指定");
+    } else {
+        loadJobData(jobId);
+    }
 });
 
 async function loadJobData(jobId) {
-	try {
-		const res = await fetch("data/skills.json");
-		if (!res.ok) {
-			throw new Error(`HTTP error! status: ${res.status}`);
-		}
+    try {
+        const res = await fetch("data/skills.json");
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
 
-		const data = await res.json();
-		const job = data[jobId];
+        const data = await res.json();
+        const job = data[jobId];
 
-		if (!job) {
-			console.error("対象のjobが存在しません:", jobId);
-			return;
-		}
+        if (!job) {
+            console.error("対象のjobが存在しません:", jobId);
+            return;
+        }
 
-		// ジョブ名とロールタイトルの更新
-		const roleText = job.role || job.class || "ロール";
-		document.getElementById("job-name").textContent = job.name;
+        document.getElementById("job-name").textContent = job.name;
 
-		const roleTitleEl = document.getElementById("role-title");
-		if (roleTitleEl) {
-			roleTitleEl.textContent = `ロールスキル（${roleText}）`;
-		}
+        // 各要素の取得
+        const roleTitleEl = document.getElementById("role-title");
+        const classSkillListEl = document.getElementById("class-skill-list");
+        const jobTitleEl = document.getElementById("job-title");
+        const jobSkillListEl = document.getElementById("job-skill-list");
+        const magicTitleEl = document.getElementById("magic-title");
+        const magicSkillListEl = document.getElementById("magic-skill-list");
 
-		const classSkills = job.classSkills || [];
-		const jobSkills = job.jobSkills || [];
+        if (roleTitleEl) {
+            roleTitleEl.textContent = `ロールスキル（${job.role}）`;
+        }
 
-		// スキルカード描画
-		renderSkills(classSkills, "class-skill-list");
-		renderSkills(jobSkills, "job-skill-list");
+        const classSkills = job.classSkills || [];
+        const jobSkills = job.jobSkills || [];
+        const magicSkills = job.magicSkills || [];
 
-		// コンボ表示描画
-		renderCombos([...classSkills, ...jobSkills]);
+        if (job.isMagic) {
+            // 魔法ジョブの場合：通常・ジョブスキル関連をすべて非表示、魔法を表示
+            if (roleTitleEl) roleTitleEl.style.display = "none";
+            if (classSkillListEl) classSkillListEl.style.display = "none";
+            if (jobTitleEl) jobTitleEl.style.display = "none";
+            if (jobSkillListEl) jobSkillListEl.style.display = "none";
+            
+            if (magicTitleEl) magicTitleEl.style.display = "block";
+            if (magicSkillListEl) magicSkillListEl.style.display = "grid";
 
-	} catch (err) {
-		console.error("データの取得に失敗しました:", err);
-	}
+            renderSkills(magicSkills, "magic-skill-list", jobId);
+            renderCombos(magicSkills, jobId);
+        } else {
+            // 通常ジョブの場合：魔法スキル関連を非表示、通常・ジョブを表示
+            if (roleTitleEl) roleTitleEl.style.display = "block";
+            if (classSkillListEl) classSkillListEl.style.display = "grid";
+            if (jobTitleEl) jobTitleEl.style.display = "block";
+            if (jobSkillListEl) jobSkillListEl.style.display = "grid";
+
+            if (magicTitleEl) magicTitleEl.style.display = "none";
+            if (magicSkillListEl) magicSkillListEl.style.display = "none";
+
+            renderSkills(classSkills, "class-skill-list", jobId);
+            renderSkills(jobSkills, "job-skill-list", jobId);
+            renderCombos([...classSkills, ...jobSkills], jobId);
+        }
+
+    } catch (err) {
+        console.error("データの取得に失敗しました:", err);
+    }
 }
 
-// HTMLエスケープ（修正済み）
+// HTMLエスケープ
 function escapeHtml(str) {
-	return String(str)
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
-		.replace(/"/g, '&quot;')
-		.replace(/'/g, '&#039;');
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }
 
-// スキルカード描画
-// スキルカード描画
-function renderSkills(skills, containerId) {
+// ✅ スキルカード
+function renderSkills(skills, containerId, jobId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
@@ -70,16 +95,13 @@ function renderSkills(skills, containerId) {
         const div = document.createElement("div");
         div.className = "skill";
 
-        // ルビ対応
         const rubyText = skill.kana || skill.ruby;
         const nameHtml = rubyText
             ? `<ruby>${escapeHtml(skill.name)}<rt>${escapeHtml(rubyText)}</rt></ruby>`
             : escapeHtml(skill.name);
 
-        // 習得レベル
         const levelText = skill.level ? `習得Lv.${skill.level}` : "";
 
-        // 種別（GCD / アビ）
         let typeLabel = "";
         if (skill.type === "gcd") {
             typeLabel = `<span class="type gcd">WS</span>`;
@@ -87,28 +109,19 @@ function renderSkills(skills, containerId) {
             typeLabel = `<span class="type ogcd">アビ</span>`;
         }
 
-        // リキャスト
         const recastText = skill.recast ? `<span class="recast">CT:${skill.recast}</span>` : "";
-
-        // 射程
         const rangeText = skill.range ? `<div class="skill-extra">射程：${escapeHtml(skill.range)}</div>` : "";
+        const mpText = skill.mp_cost !== undefined ? `<div class="skill-extra">MP：${skill.mp_cost}</div>` : "";
 
-        // MP
-        const mpText = skill.mp_cost !== undefined
-            ? `<div class="skill-extra">MP：${skill.mp_cost}</div>`
-            : "";
-
-        // 改行文字（\n）をHTMLの<br>タグに変換
-        const escapedDesc = escapeHtml(skill.description || "").replace(/\n/g, "<br>");
+        const desc = escapeHtml(skill.description || "").replace(/\n/g, "<br>");
 
         div.innerHTML = `
-            <img src="assets/images/${skill.id}.png" 
-                class="icon" 
+            <img src="assets/images/${jobId}/${skill.id}.png"
+                class="icon"
                 alt="${escapeHtml(skill.name)}"
-                onerror="this.style.display='none'">
-
+                title="${escapeHtml(skill.name)}"
+                onerror="this.onerror=null; this.src='assets/images/common/${skill.id}.png'">
             <div class="skill-name">${nameHtml}</div>
-
             <div class="skill-level">${levelText}</div>
 
             <div class="skill-meta">
@@ -119,69 +132,69 @@ function renderSkills(skills, containerId) {
             ${rangeText}
             ${mpText}
 
-            <div class="skill-desc">${escapedDesc}</div>
+            <div class="skill-desc">${desc}</div>
         `;
 
         container.appendChild(div);
     });
 }
 
-// コンボ描画
-function renderCombos(allSkills) {
-	const comboList = document.getElementById("combo-list");
-	if (!comboList) return;
+// ✅ コンボ
+function renderCombos(allSkills, jobId) {
+    const comboList = document.getElementById("combo-list");
+    if (!comboList) return;
 
-	comboList.innerHTML = "";
+    comboList.innerHTML = "";
 
-	const nonStarterSkillIds = new Set();
-	allSkills.forEach(skill => {
-		if (skill.combo && Array.isArray(skill.combo)) {
-			skill.combo.forEach(nextId => nonStarterSkillIds.add(nextId));
-		}
-	});
+    const nonStarterSkillIds = new Set();
+    allSkills.forEach(skill => {
+        if (skill.combo) {
+            skill.combo.forEach(id => nonStarterSkillIds.add(id));
+        }
+    });
 
-	let hasCombo = false;
+    let hasCombo = false;
 
-	allSkills.forEach(skill => {
-		if (skill.combo && !nonStarterSkillIds.has(skill.id)) {
-			hasCombo = true;
+    allSkills.forEach(skill => {
+        if (skill.combo && !nonStarterSkillIds.has(skill.id)) {
+            hasCombo = true;
 
-			const comboDiv = document.createElement("div");
-			comboDiv.className = "combo-item";
+            let chain = [skill];
+            let current = skill;
+            const visited = new Set([skill.id]);
 
-			let chain = [skill];
-			let current = skill;
-			const visited = new Set([skill.id]);
+            while (current.combo && current.combo.length > 0) {
+                const nextId = current.combo[0];
+                if (visited.has(nextId)) break;
 
-			while (current.combo && current.combo.length > 0) {
-				const nextId = current.combo[0];
-				if (visited.has(nextId)) break;
+                const next = allSkills.find(s => s.id === nextId);
+                if (!next) break;
 
-				const next = allSkills.find(s => s.id === nextId);
-				if (!next) break;
+                chain.push(next);
+                visited.add(nextId);
+                current = next;
+            }
 
-				chain.push(next);
-				visited.add(nextId);
-				current = next;
-			}
+            const comboDiv = document.createElement("div");
+            comboDiv.className = "combo-item";
 
-			comboDiv.innerHTML = chain.map((s, i) => {
-				const icon = `
-					<img src="assets/images/${s.id}.png"
-						class="icon combo-icon"
-						alt="${escapeHtml(s.name)}"
-						title="${escapeHtml(s.name)}"
-						onerror="this.style.display='none'">
-				`;
+            comboDiv.innerHTML = chain.map((s, i) => {
+                const icon = `
+                    <img src="assets/images/${jobId}/${s.id}.png"
+                        class="icon combo-icon"
+                        alt="${escapeHtml(s.name)}"
+                        title="${escapeHtml(s.name)}"
+                        onerror="this.onerror=null; this.src='assets/images/common/${s.id}.png'; if(!this.complete){this.style.display='none'}">
+                `;
 
-				return i === 0 ? icon : `<span class="arrow">→</span>${icon}`;
-			}).join("");
+                return i === 0 ? icon : `<span class="arrow">→</span>${icon}`;
+            }).join("");
 
-			comboList.appendChild(comboDiv);
-		}
-	});
+            comboList.appendChild(comboDiv);
+        }
+    });
 
-	if (!hasCombo) {
-		comboList.innerHTML = "<p class='no-data'>コンボ情報はありません。</p>";
-	}
+    if (!hasCombo) {
+        comboList.innerHTML = "<p class='no-data'>コンボ情報はありません。</p>";
+    }
 }
