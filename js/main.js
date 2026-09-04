@@ -115,43 +115,33 @@ function renderSkills(skills, containerId, jobId) {
     container.style.flexDirection = "column";
     container.style.gap = "16px";
 
-    // セレクトボックスから設定値を取得
     const levelSortOrder = document.getElementById("level-sort")?.value || "asc";
-    const typeOrderOption = document.getElementById("type-order")?.value || "gcd-top";
+    const typeOrderOption = document.getElementById("type-order")?.value || "pure-level";
 
-    // 1. ソート処理（タイプ順 ＆ レベル順）
+    // 1. ソート処理
     const sortedSkills = [...skills].sort((a, b) => {
+        const levelA = a.level || 0;
+        const levelB = b.level || 0;
+
+        // タイプ分けしない（純粋にレベル順）場合
+        if (typeOrderOption === "pure-level") {
+            return levelSortOrder === "desc" ? levelB - levelA : levelA - levelB;
+        }
+
+        // タイプで分ける場合
         const orderA = a.type === "ogcd" ? 2 : 1;
         const orderB = b.type === "ogcd" ? 2 : 1;
 
         if (typeOrderOption === "ogcd-top") {
-            // oGCDを上にする場合 (ogcd=1, gcd=2)
             const revA = a.type === "ogcd" ? 1 : 2;
             const revB = b.type === "ogcd" ? 1 : 2;
             if (revA !== revB) return revA - revB;
         } else {
-            // GCDを上にする場合 (gcd=1, ogcd=2)
             if (orderA !== orderB) return orderA - orderB;
         }
 
         // タイプが同じ場合のレベルソート
-        const levelA = a.level || 0;
-        const levelB = b.level || 0;
         return levelSortOrder === "desc" ? levelB - levelA : levelA - levelB;
-    });
-
-    // 2. 上に配置するグループと下に配置するグループに分割
-    const isOgcdFirst = typeOrderOption === "ogcd-top";
-    const primaryType = isOgcdFirst ? "ogcd" : "gcd";
-    const secondaryType = isOgcdFirst ? "gcd" : "ogcd";
-
-    const primarySkills = sortedSkills.filter(s => {
-        if (primaryType === "gcd") return s.type === "gcd" || (!s.type && s.type !== "ogcd");
-        return s.type === "ogcd";
-    });
-    const secondarySkills = sortedSkills.filter(s => {
-        if (secondaryType === "gcd") return s.type === "gcd" || (!s.type && s.type !== "ogcd");
-        return s.type === "ogcd";
     });
 
     const createSkillCard = (skill) => {
@@ -189,18 +179,39 @@ function renderSkills(skills, containerId, jobId) {
         return div;
     };
 
-    if (primarySkills.length > 0) {
-        const primaryGrid = document.createElement("div");
-        primaryGrid.className = "grid";
-        primarySkills.forEach(skill => primaryGrid.appendChild(createSkillCard(skill)));
-        container.appendChild(primaryGrid);
-    }
+    // 2. 描画処理（純粋なレベル順なら1つのグリッド、それ以外は上下2つのグリッドに分ける）
+    if (typeOrderOption === "pure-level") {
+        const singleGrid = document.createElement("div");
+        singleGrid.className = "grid";
+        sortedSkills.forEach(skill => singleGrid.appendChild(createSkillCard(skill)));
+        container.appendChild(singleGrid);
+    } else {
+        const isOgcdFirst = typeOrderOption === "ogcd-top";
+        const primaryType = isOgcdFirst ? "ogcd" : "gcd";
+        const secondaryType = isOgcdFirst ? "gcd" : "ogcd";
 
-    if (secondarySkills.length > 0) {
-        const secondaryGrid = document.createElement("div");
-        secondaryGrid.className = "grid";
-        secondarySkills.forEach(skill => secondaryGrid.appendChild(createSkillCard(skill)));
-        container.appendChild(secondaryGrid);
+        const primarySkills = sortedSkills.filter(s => {
+            if (primaryType === "gcd") return s.type === "gcd" || (!s.type && s.type !== "ogcd");
+            return s.type === "ogcd";
+        });
+        const secondarySkills = sortedSkills.filter(s => {
+            if (secondaryType === "gcd") return s.type === "gcd" || (!s.type && s.type !== "ogcd");
+            return s.type === "ogcd";
+        });
+
+        if (primarySkills.length > 0) {
+            const primaryGrid = document.createElement("div");
+            primaryGrid.className = "grid";
+            primarySkills.forEach(skill => primaryGrid.appendChild(createSkillCard(skill)));
+            container.appendChild(primaryGrid);
+        }
+
+        if (secondarySkills.length > 0) {
+            const secondaryGrid = document.createElement("div");
+            secondaryGrid.className = "grid";
+            secondarySkills.forEach(skill => secondaryGrid.appendChild(createSkillCard(skill)));
+            container.appendChild(secondaryGrid);
+        }
     }
 }
 
@@ -219,7 +230,7 @@ function renderCombos(allSkills, jobId) {
     if (!comboList) return;
     comboList.innerHTML = "";
     // ...（省略：既存のコンボ描画ロジックをそのまま配置）
-    
+
     const nonStarterSkillIds = new Set();
     allSkills.forEach(skill => {
         if (skill.combo) {
