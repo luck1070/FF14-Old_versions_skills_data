@@ -65,9 +65,8 @@ function renderJobContent() {
 
     const classSkills = job.classSkills || [];
     const jobSkills = job.jobSkills || [];
-    const magicSkills = job.magicSkills || [];
 
-    const hasAnySkills = classSkills.length > 0 || jobSkills.length > 0 || magicSkills.length > 0;
+    const hasAnySkills = classSkills.length > 0 || jobSkills.length > 0;
 
     if (!hasAnySkills) {
         [roleTitleEl, classSkillListEl, jobTitleEl, jobSkillListEl, magicTitleEl, magicSkillListEl, comboTitleEl, comboListEl].forEach(el => {
@@ -76,33 +75,21 @@ function renderJobContent() {
         return;
     }
 
+    // 魔法要素は非表示
+    if (magicTitleEl) magicTitleEl.style.display = "none";
+    if (magicSkillListEl) magicSkillListEl.style.display = "none";
+
+    // 共通の表示処理
+    if (roleTitleEl) roleTitleEl.style.display = "block";
+    if (classSkillListEl) classSkillListEl.style.display = "flex";
+    if (jobTitleEl) jobTitleEl.style.display = "block";
+    if (jobSkillListEl) jobSkillListEl.style.display = "flex";
     if (comboTitleEl) comboTitleEl.style.display = "block";
     if (comboListEl) comboListEl.style.display = "block";
 
-    if (job.isMagic) {
-        if (roleTitleEl) roleTitleEl.style.display = "none";
-        if (classSkillListEl) classSkillListEl.style.display = "none";
-        if (jobTitleEl) roleTitleEl.style.display = "none";
-        if (jobSkillListEl) jobSkillListEl.style.display = "none";
-        
-        if (magicTitleEl) magicTitleEl.style.display = "block";
-        if (magicSkillListEl) magicSkillListEl.style.display = "flex";
-
-        renderSkills(magicSkills, "magic-skill-list", jobId);
-        renderCombos(magicSkills, jobId);
-    } else {
-        if (roleTitleEl) roleTitleEl.style.display = "block";
-        if (classSkillListEl) classSkillListEl.style.display = "flex";
-        if (jobTitleEl) roleTitleEl.style.display = "block";
-        if (jobSkillListEl) jobSkillListEl.style.display = "flex";
-
-        if (magicTitleEl) magicTitleEl.style.display = "none";
-        if (magicSkillListEl) magicSkillListEl.style.display = "none";
-
-        renderSkills(classSkills, "class-skill-list", jobId);
-        renderSkills(jobSkills, "job-skill-list", jobId);
-        renderCombos([...classSkills, ...jobSkills], jobId);
-    }
+    renderSkills(classSkills, "class-skill-list", jobId);
+    renderSkills(jobSkills, "job-skill-list", jobId);
+    renderCombos([...classSkills, ...jobSkills], jobId);
 }
 
 // ✅ スキルカード（ソート条件を反映して描画）
