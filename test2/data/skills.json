@@ -10,7 +10,8 @@
                 "type": "gcd",
                 "recast": "2.5s",
                 "mp_cost": 0,
-                "range": "3m",
+                "range": 3,
+                "aoe_radius": 0,
                 "description": "対象に物理攻撃。\n威力：220",
                 "combo": [
                     "riot_blade"
@@ -23,7 +24,8 @@
                 "type": "ogcd",
                 "recast": "60s",
                 "mp_cost": 0,
-                "range": "自身",
+                "range": 0,
+                "aoe_radius": 0,
                 "description": "一定時間、自身の与ダメージを25％上昇させる。\n効果時間：20秒\n追加効果：自身に「ゴアブレード実行可」を付与する。\n効果時間：30秒"
             },
             {
@@ -33,7 +35,8 @@
                 "type": "gcd",
                 "recast": "2.5s",
                 "mp_cost": 0,
-                "range": "3m",
+                "range": 3,
+                "aoe_radius": 0,
                 "description": "対象に物理攻撃。\n威力：170\nコンボ条件：ファストブレード\nコンボ時威力：330\nコンボボーナス：自身のＭＰを回復する",
                 "combo": [
                     "royal_authority"
@@ -46,7 +49,8 @@
                 "type": "gcd",
                 "recast": "2.5s",
                 "mp_cost": 0,
-                "range": "5m",
+                "range": 0,
+                "aoe_radius": 5,
                 "description": "範囲物理攻撃。\n威力：120\n追加効果：敵視アップ",
                 "combo": [
                     "prominence"
