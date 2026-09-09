@@ -10,5 +10,16 @@ test2/
      ├ js/
      │   ├ job-list.js
      │   └ main.js
-     └ images/
-         └ （スキルアイコンpng）
+      
+
+
+      assets/images/
+ 		├ paladin/
+ 		├ white_mage/
+ 		├ warrior/
+ 		└ common/
+     			├ rampart.png
+     			├ low_blow.png
+     			├ interject.png
+     			├ reprisal.png
+     			└ arms_length.png
