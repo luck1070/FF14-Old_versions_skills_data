@@ -1,111 +1,333 @@
+/* 基本スタイル */
 body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-    font-family: system-ui, -apple-system, sans-serif;
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
+	background-color: #1a1a1a;
+	color: #e0e0e0;
+	font-family: system-ui, -apple-system, sans-serif;
+	padding: 20px;
+	max-width: 900px;
+	margin: 0 auto;
 }
 
-/* 画像と同じような質感の見出しデザイン */
-h1 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 24px;
+h1, h2 {
+	border-bottom: 1px solid #444;
+	padding-bottom: 8px;
+	margin-top: 24px;
 }
 
-h2 {
-    font-size: 20px;
-    font-weight: normal;
-    border-bottom: 1px solid #333;
-    padding-bottom: 8px;
-    margin-top: 32px;
-    margin-bottom: 16px;
+/* リンク全般 */
+a {
+	color: #4da6ff;
+	text-decoration: none;
 }
 
-/* スキルグリッド */
+a:hover {
+	text-decoration: underline;
+}
+
+/* 戻るリンク */
+.back-link {
+	display: inline-block;
+	margin-bottom: 12px;
+	font-size: 14px;
+}
+
+/* トップページのメインリンク */
+.main-link {
+	display: inline-block;
+	margin-top: 20px;
+	padding: 12px 24px;
+	font-size: 18px;
+	background-color: #222;
+	color: #4da6ff;
+	border: 1px solid #4da6ff;
+	border-radius: 6px;
+	font-weight: bold;
+	transition: background-color 0.2s, color 0.2s;
+}
+
+.main-link:hover {
+	background-color: #4da6ff;
+	color: #1a1a1a;
+	text-decoration: none;
+}
+
+/* ジョブ一覧 */
+.job-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.job-card {
+	display: inline-block;
+	padding: 8px 16px;
+	background-color: #222;
+	border: 1px solid #444;
+	border-radius: 6px;
+	font-size: 15px;
+}
+
+.job-card:hover {
+	border-color: #4da6ff;
+	background-color: #2a2a2a;
+	text-decoration: none;
+}
+
+/* スキル一覧 */
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 16px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+	gap: 12px;
 }
 
 .skill {
-    width: 90px;
-    padding: 8px;
-    text-align: center;
-    background-color: #242424;
-    border-radius: 6px;
-    border: 1px solid #333;
-    font-size: 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	min-height: 240px;
+	height: auto;
+
+	padding: 12px;
+	border: 1px solid #444;
+	background-color: #222;
+	border-radius: 6px;
+
+	text-align: left;
 }
 
-.skill-name {
-    margin-top: 6px;
-    word-break: break-all;
-}
-
-/* アイコン設定 */
+/* アイコン */
 .icon {
-    width: 56px;
-    height: 56px;
-    cursor: pointer;
-    border: 1px solid #555;
-    border-radius: 6px;
-    object-fit: cover;
-    transition: border-color 0.2s, transform 0.2s;
+	width: 56px;
+	height: 56px;
+	border-radius: 4px;
+	object-fit: cover;
+	align-self: center;
 }
 
-.icon:hover {
-    border-color: #4da6ff;
-}
-
-/* コンボ一覧 */
-#combo-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.combo-item {
-    display: flex;
-    align-items: center;
-    background-color: #242424;
-    padding: 12px 16px;
-    border-radius: 6px;
-    border: 1px solid #333;
-    overflow-x: auto;
-}
-
-.combo-icon:hover {
-    transform: scale(1.1);
-}
-
-.arrow {
-    margin: 0 12px;
-    font-size: 20px;
-    color: #888;
-}
-
-.no-data {
-    color: #888;
-    font-size: 14px;
-}
-
-/* スキル名とルビの設定 */
+/* スキル名 */
 .skill-name {
-    margin-top: 8px;
-    word-break: break-all;
-    line-height: 1.2;
+	margin-top: 6px;
+	font-size: 13px;
+	line-height: 1.3;
+	height: auto;
+	word-break: break-all;
+	display: flex;
+	flex-direction: column;
 }
 
+/* レベル */
+.skill-level {
+	font-size: 11px;
+	color: #aaa;
+	margin-top: 2px;
+	margin-bottom: 4px;
+}
+
+/* メタ情報（WS / CT） */
+.skill-meta {
+	font-size: 11px;
+	margin-bottom: 6px;
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+/* 種別 */
+.type {
+	padding: 2px 4px;
+	border-radius: 3px;
+	font-size: 10px;
+}
+
+/* GCD */
+.type.gcd {
+	background: #2a6;
+}
+
+/* アビ */
+.type.ogcd {
+	background: #a62;
+}
+
+/* リキャスト */
+.recast {
+	color: #888;
+	font-size: 10px;
+}
+
+/* 説明文 */
+.skill-desc {
+	font-size: 12px;
+	color: #bbb;
+	line-height: 1.4;
+	white-space: pre-line;
+}
+
+/* 追加パラメータ（射程・MPなど） */
+.skill-extra {
+	font-size: 11px;
+	color: #aaa;
+	margin-bottom: 4px;
+}
+
+/* ルビ */
 ruby {
-    ruby-align: center;
+	ruby-position: over;
+	ruby-align: center;
 }
 
 rt {
-    font-size: 9px;
-    color: #aaa; /* ルビの文字を少し明るいグレーに */
-    font-weight: normal;
+	font-size: 9px;
+	color: #aaa;
+	font-weight: normal;
+}
+
+/* コンボ */
+#combo-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 12px;
+}
+
+.combo-item {
+	display: flex;
+	align-items: center;
+	background-color: #222;
+	padding: 12px 16px;
+	border-radius: 6px;
+	border: 1px solid #444;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.combo-icon {
+	cursor: pointer;
+	transition: transform 0.2s;
+	flex-shrink: 0;
+	width: 48px;
+	height: 48px;
+}
+
+.combo-icon:hover {
+	transform: scale(1.08);
+}
+
+.arrow {
+	margin: 0 8px;
+	font-size: 18px;
+	color: #888;
+	user-select: none;
+	flex-shrink: 0;
+}
+
+.no-data {
+	color: #888;
+	font-size: 14px;
+}
+
+/* 並び替えコントロール */
+.skill-controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    background-color: #222;
+    padding: 10px 14px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.skill-controls label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.skill-controls select {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* 追加パラメータ（射程・MPなど） */
+.skill-extra {
+    font-size: 11px;
+    color: #aaa;
+    margin-bottom: 4px;
+}
+
+/* 遠隔スキルや接近技などのカラー分け */
+.skill-extra.long-range {
+    color: #3498db; /* 青系：遠隔 */
+}
+.skill-extra.melee-range {
+    color: #e67e22; /* オレンジ系：近接 */
+}
+
+/* 単体範囲のテキストデザイン */
+.skill-extra.aoe-single {
+    color: #ff6b6b;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+/* 範囲攻撃（AoE）のバッジデザイン */
+.skill-extra.aoe-badge {
+    padding: 1px 4px;
+    font-size: 11px;        /* 0.5emだと小さすぎるため、10px〜11px程度に調整 */
+    color: #ff6b6b;
+    margin-top: 2px;
+    border-radius: 2px;
+}
+
+/* バトルデータの見方ガイド */
+.battle-guide {
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.guide-title {
+    font-weight: bold;
+    color: #e0e0e0;
+    display: block;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 4px;
+}
+
+.guide-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.guide-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: #bbb;
+}
+
+.guide-item .long-range {
+    color: #3498db;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.guide-item .aoe-badge {
+    color: #ff6b6b;
+    font-weight: bold;
+    white-space: nowrap;
 }
