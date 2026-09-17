@@ -28,18 +28,29 @@
         </div>
     </div>
 
-    <!-- ミニゲーム1：木人討滅戦（10秒連打チャレンジ） -->
+    <!-- ミニゲーム1：サボテンダー討伐戦 -->
     <section class="minigame-section">
-        <h3>🎮 おまけ：木人討滅戦（10秒連打チャレンジ）</h3>
-        <p>制限時間内にボタンを連打してDPSを叩き出せ！</p>
+        <h3>🌵 おまけ：サボテンダー討伐戦（10秒連打チャレンジ）</h3>
+        <p>制限時間内に針千本を撃たれる前に、サボテンダーをボコボコにしろ！</p>
         
-        <div class="minigame-status">
-            残り時間: <span id="time-left">10</span>秒 | スコア: <span id="score">0</span>
+        <div class="mokujin-container">
+            <!-- ステータス表示 -->
+            <div class="minigame-status">
+                残り時間: <span id="time-left">10</span>秒 | ダメージ数: <span id="score">0</span>
+            </div>
+            
+            <!-- 結果発表専用ボックス -->
+            <div id="game-result-msg" class="mokujin-result-box">「スタート」を押してバトル開始！</div>
+
+            <!-- ボタン配置エリア（連打用とリセット用を分離） -->
+            <div class="mokujin-action-area">
+                <!-- メインの連打ボタン -->
+                <button id="punch-btn" class="mokujin-punch-btn" onclick="punchMokujin()" disabled>サボテンダーを殴る！</button>
+                
+                <!-- 右側に配置したリセット（もう一度）ボタン -->
+                <button id="reset-btn" class="mokujin-reset-btn" onclick="startMokujinGame()">スタート</button>
+            </div>
         </div>
-        
-        <button id="start-game-btn" class="minigame-btn" onclick="startMokujinGame()">木人を攻撃する！</button>
-        
-        <div id="game-result-msg" class="minigame-result"></div>
     </section>
 
     <main>
@@ -71,42 +82,75 @@
 
     <!-- ミニゲーム用のJavaScript -->
     <script>
-        /* --- 木人討滅戦のロジック --- */
-        let isPlaying = false;
-        let score = 0;
-        let timeLeft = 10;
-        let timer = null;
+        /* --- サボテンダー討伐戦のロジック --- */
+        let isMokujinPlaying = false;
+        let mokujinScore = 0;
+        let mokujinTimeLeft = 10;
+        let mokujinTimer = null;
 
         function startMokujinGame() {
-            if (isPlaying) {
-                score++;
-                document.getElementById("score").textContent = score;
+            const punchBtn = document.getElementById("punch-btn");
+            const resetBtn = document.getElementById("reset-btn");
+            const resultBox = document.getElementById("game-result-msg");
+            const scoreSpan = document.getElementById("score");
+            const timeLeftSpan = document.getElementById("time-left");
+
+            // プレイ中の場合はリセット
+            if (isMokujinPlaying) {
+                clearInterval(mokujinTimer);
+                isMokujinPlaying = false;
+                
+                if (punchBtn) punchBtn.disabled = true;
+                if (resetBtn) resetBtn.textContent = "スタート";
+                if (scoreSpan) scoreSpan.textContent = "0";
+                if (timeLeftSpan) timeLeftSpan.textContent = "10";
+                if (resultBox) resultBox.textContent = "リセットしました。「スタート」を押してね！";
                 return;
             }
 
-            isPlaying = true;
-            score = 1; 
-            timeLeft = 10;
-            
-            const btn = document.getElementById("start-game-btn");
-            btn.textContent = "連打しろ！！";
-            
-            document.getElementById("score").textContent = score;
-            document.getElementById("game-result-msg").textContent = "";
+            // 初期化 & バトル開始
+            isMokujinPlaying = true;
+            mokujinScore = 0;
+            mokujinTimeLeft = 10;
 
-            timer = setInterval(() => {
-                timeLeft--;
-                document.getElementById("time-left").textContent = timeLeft;
+            if (punchBtn) punchBtn.disabled = false;
+            if (resetBtn) resetBtn.textContent = "リセット";
+            
+            if (scoreSpan) scoreSpan.textContent = mokujinScore;
+            if (timeLeftSpan) timeLeftSpan.textContent = mokujinTimeLeft;
+            if (resultBox) resultBox.textContent = "チクチク痛い！連打で押し切れ…！";
 
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    isPlaying = false;
-                    btn.textContent = "もう一度挑戦する";
+            // タイマー開始
+            if (mokujinTimer) clearInterval(mokujinTimer);
+            mokujinTimer = setInterval(() => {
+                mokujinTimeLeft--;
+                if (timeLeftSpan) timeLeftSpan.textContent = mokujinTimeLeft;
+
+                if (mokujinTimeLeft <= 0) {
+                    clearInterval(mokujinTimer);
+                    isMokujinPlaying = false;
                     
-                    const dps = (score / 10).toFixed(1);
-                    document.getElementById("game-result-msg").textContent = `討滅完了！ スコア: ${score} (DPS: ${dps}) お疲れ様でした！`;
+                    if (punchBtn) punchBtn.disabled = true;
+                    if (resetBtn) resetBtn.textContent = "もう一度遊ぶ";
+                    
+                    const dps = (mokujinScore / 10).toFixed(1);
+                    if (resultBox) {
+                        if (mokujinScore >= 60) {
+                            resultBox.textContent = `討伐成功！ 針千本を阻止した！ スコア: ${mokujinScore} (DPS: ${dps})`;
+                        } else {
+                            resultBox.textContent = `ぐふっ…針千本を喰らった！ スコア: ${mokujinScore} (DPS: ${dps})`;
+                        }
+                    }
                 }
             }, 1000);
+        }
+
+        function punchMokujin() {
+            if (!isMokujinPlaying) return;
+
+            mokujinScore++;
+            const scoreSpan = document.getElementById("score");
+            if (scoreSpan) scoreSpan.textContent = mokujinScore;
         }
 
         /* --- ジョブガチャのロジック --- */
@@ -136,7 +180,7 @@
                 resultDiv.textContent = randomTempJob;
                 count++;
                 
-                if (count > 10) {
+                if (count > 30) {
                     clearInterval(interval);
                     const finalJob = allJobs[Math.floor(Math.random() * allJobs.length)];
                     resultDiv.textContent = `🎯 運命のジョブ： 【 ${finalJob} 】`;
