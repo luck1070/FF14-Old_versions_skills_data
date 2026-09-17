@@ -1,50 +1,151 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ジョブ一覧 - FF14 Skill Archive</title>
-	<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ジョブ一覧 - FF14 Skill Archive</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-	<header>
-		<a href="index.html" class="back-link">← トップに戻る</a>
-		<h1>ジョブ一覧</h1>
-	</header>
+    <header>
+        <a href="index.html" class="back-link">← トップに戻る</a>
+        <h1>ジョブ一覧</h1>
+    </header>
 
-	<!-- 距離・範囲の見方ガイド -->
-	<div class="battle-guide">
-		<span class="guide-title">📖 バトルデータの見方</span>
-		<div class="guide-items">
-			<div class="guide-item">
-				<span class="guide-icon long-range">🡨🡪 射程</span>
-				<span class="guide-desc">対象（敵など）に届く距離。数値が大きいほど遠くから攻撃できます。</span>
-			</div>
-			<div class="guide-item">
-				<span class="guide-icon aoe-badge">◯ 範囲</span>
-				<span class="guide-desc">技が当たったとき、周囲に広がる効果の広さ（半径）。「単体」は1体にのみ当たります。</span>
-			</div>
-		</div>
-	</div>
+    <!-- 距離・範囲の見方ガイド -->
+    <div class="battle-guide">
+        <span class="guide-title">📖 バトルデータの見方</span>
+        <div class="guide-items">
+            <div class="guide-item">
+                <span class="guide-icon long-range">🡨🡪 射程</span>
+                <span class="guide-desc">対象（敵など）に届く距離。数値が大きいほど遠くから攻撃できます。</span>
+            </div>
+            <div class="guide-item">
+                <span class="guide-icon aoe-badge">◯ 範囲</span>
+                <span class="guide-desc">技が当たったとき、周囲に広がる効果の広さ（半径）。「単体」は1体にのみ当たります。</span>
+            </div>
+        </div>
+    </div>
 
-	<main>
-		<h2>タンク</h2>
-		<div id="tank-list" class="job-grid"></div>
+    <!-- ミニゲーム1：木人討滅戦（10秒連打チャレンジ） -->
+    <section class="minigame-section">
+        <h3>🎮 おまけ：木人討滅戦（10秒連打チャレンジ）</h3>
+        <p>制限時間内にボタンを連打してDPSを叩き出せ！</p>
+        
+        <div class="minigame-status">
+            残り時間: <span id="time-left">10</span>秒 | スコア: <span id="score">0</span>
+        </div>
+        
+        <button id="start-game-btn" class="minigame-btn" onclick="startMokujinGame()">木人を攻撃する！</button>
+        
+        <div id="game-result-msg" class="minigame-result"></div>
+    </section>
 
-		<h2>ヒーラー</h2>
-		<div id="healer-list" class="job-grid"></div>
+    <main>
+        <h2>タンク</h2>
+        <div id="tank-list" class="job-grid"></div>
 
-		<h2>Melee (近接物理DPS)</h2>
-		<div id="melee-list" class="job-grid"></div>
+        <h2>ヒーラー</h2>
+        <div id="healer-list" class="job-grid"></div>
 
-		<h2>Ranged (遠隔物理DPS)</h2>
-		<div id="ranged-list" class="job-grid"></div>
+        <h2>Melee (近接物理DPS)</h2>
+        <div id="melee-list" class="job-grid"></div>
 
-		<h2>Caster (遠隔魔法DPS)</h2>
-		<div id="caster-list" class="job-grid"></div>
-	</main>
+        <h2>Ranged (遠隔物理DPS)</h2>
+        <div id="ranged-list" class="job-grid"></div>
 
-	<script src="assets/js/job-list.js"></script>
+        <h2>Caster (遠隔魔法DPS)</h2>
+        <div id="caster-list" class="job-grid"></div>
+
+        <!-- ミニゲーム2：本日のシャキ待ち・ジョブガチャ -->
+        <section class="minigame-section">
+            <h3>🎲 本日のシャキ待ち・ジョブガチャ</h3>
+            <p>どのジョブでコンテンツ申請するか迷ったら、運命に委ねてみよう！</p>
+            
+            <button id="job-gacha-btn" class="minigame-btn" onclick="drawRandomJob()">運命のジョブを引く</button>
+            
+            <div id="job-gacha-result" class="minigame-result"></div>
+        </section>
+    </main>
+
+    <!-- ミニゲーム用のJavaScript -->
+    <script>
+        /* --- 木人討滅戦のロジック --- */
+        let isPlaying = false;
+        let score = 0;
+        let timeLeft = 10;
+        let timer = null;
+
+        function startMokujinGame() {
+            if (isPlaying) {
+                score++;
+                document.getElementById("score").textContent = score;
+                return;
+            }
+
+            isPlaying = true;
+            score = 1; 
+            timeLeft = 10;
+            
+            const btn = document.getElementById("start-game-btn");
+            btn.textContent = "連打しろ！！";
+            
+            document.getElementById("score").textContent = score;
+            document.getElementById("game-result-msg").textContent = "";
+
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById("time-left").textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    isPlaying = false;
+                    btn.textContent = "もう一度挑戦する";
+                    
+                    const dps = (score / 10).toFixed(1);
+                    document.getElementById("game-result-msg").textContent = `討滅完了！ スコア: ${score} (DPS: ${dps}) お疲れ様でした！`;
+                }
+            }, 1000);
+        }
+
+        /* --- ジョブガチャのロジック --- */
+        const allJobs = [
+            // タンク
+            "ナイト (PLD)", "戦士 (WAR)", "暗黒騎士 (DRK)", "ガンブレイカー (GNB)",
+            // ヒーラー
+            "白魔道士 (WHM)", "学者 (SCH)", "占星術師 (AST)", "賢者 (SGE)",
+            // Melee
+            "モンク (MNK)", "竜騎士 (DRG)", "忍者 (NIN)", "侍 (SAM)", "リーパー (RPR)", "ヴァイパー (VPR)",
+            // Ranged
+            "吟遊詩人 (BRD)", "機工士 (MCH)", "踊り子 (DNC)",
+            // Caster
+            "黒魔道士 (BLM)", "召喚士 (SMN)", "赤魔道士 (RDM)", "ピクトマンサー (PCT)"
+        ];
+
+        function drawRandomJob() {
+            const resultDiv = document.getElementById("job-gacha-result");
+            const btn = document.getElementById("job-gacha-btn");
+            
+            btn.disabled = true;
+            resultDiv.textContent = "シャカシャカシャカ……";
+
+            let count = 0;
+            const interval = setInterval(() => {
+                const randomTempJob = allJobs[Math.floor(Math.random() * allJobs.length)];
+                resultDiv.textContent = randomTempJob;
+                count++;
+                
+                if (count > 10) {
+                    clearInterval(interval);
+                    const finalJob = allJobs[Math.floor(Math.random() * allJobs.length)];
+                    resultDiv.textContent = `🎯 運命のジョブ： 【 ${finalJob} 】`;
+                    btn.disabled = false;
+                }
+            }, 80);
+        }
+    </script>
+
+    <script src="assets/js/job-list.js"></script>
 </body>
 </html>
