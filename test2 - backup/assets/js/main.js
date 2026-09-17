@@ -317,3 +317,75 @@ function renderCombos(allSkills, jobId) {
         comboList.innerHTML = "<p class='no-data'>コンボ情報はありません。</p>";
     }
 }
+
+/* ==========================================
+    木人討滅戦（10秒連打チャレンジ）のロジック（修正版）
+========================================== */
+let isMokujinPlaying = false;
+let mokujinScore = 0;
+let mokujinTimeLeft = 10;
+let mokujinTimer = null;
+
+// ゲーム開始 / リセットを行う関数
+function startMokujinGame() {
+    const punchBtn = document.getElementById("punch-btn");
+    const resetBtn = document.getElementById("reset-btn");
+    const resultBox = document.getElementById("game-result-msg");
+    const scoreSpan = document.getElementById("score");
+    const timeLeftSpan = document.getElementById("time-left");
+
+    // 既にプレイ中の場合は、ボタンが押されたら「強制リセット（中断）」として扱う
+    if (isMokujinPlaying) {
+        clearInterval(mokujinTimer);
+        isMokujinPlaying = false;
+        
+        if (punchBtn) punchBtn.disabled = true;
+        if (resetBtn) resetBtn.textContent = "スタート";
+        if (scoreSpan) scoreSpan.textContent = "0";
+        if (timeLeftSpan) timeLeftSpan.textContent = "10";
+        if (resultBox) resultBox.textContent = "リセットしました。「スタート」を押してね！";
+        return;
+    }
+
+    // 初期化 & ゲーム開始
+    isMokujinPlaying = true;
+    mokujinScore = 0;
+    mokujinTimeLeft = 10;
+
+    if (punchBtn) punchBtn.disabled = false; // 連打ボタンを有効化
+    if (resetBtn) resetBtn.textContent = "リセット";
+    
+    if (scoreSpan) scoreSpan.textContent = mokujinScore;
+    if (timeLeftSpan) timeLeftSpan.textContent = mokujinTimeLeft;
+    if (resultBox) resultBox.textContent = "バトル中……！ひたすら連打！";
+
+    // タイマー開始
+    if (mokujinTimer) clearInterval(mokujinTimer);
+    mokujinTimer = setInterval(() => {
+        mokujinTimeLeft--;
+        if (timeLeftSpan) timeLeftSpan.textContent = mokujinTimeLeft;
+
+        if (mokujinTimeLeft <= 0) {
+            clearInterval(mokujinTimer);
+            isMokujinPlaying = false;
+            
+            // 連打ボタンを無効化（誤爆防止）
+            if (punchBtn) punchBtn.disabled = true;
+            if (resetBtn) resetBtn.textContent = "もう一度遊ぶ";
+            
+            const dps = (mokujinScore / 10).toFixed(1);
+            if (resultBox) {
+                resultBox.textContent = `討滅完了！ スコア: ${mokujinScore} (DPS: ${dps})`;
+            }
+        }
+    }, 1000);
+}
+
+// 連打ボタンが押されたときの処理
+function punchMokujin() {
+    if (!isMokujinPlaying) return;
+
+    mokujinScore++;
+    const scoreSpan = document.getElementById("score");
+    if (scoreSpan) scoreSpan.textContent = mokujinScore;
+}

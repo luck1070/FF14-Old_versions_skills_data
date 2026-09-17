@@ -428,3 +428,80 @@ rt {
     color: #4da6ff;
     min-height: 27px;
 }
+
+/* 木人連打ゲームのレイアウト調整 */
+.mokujin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+/* 結果メッセージボックス */
+.mokujin-result-box {
+    background-color: #1a1a1a;
+    border: 1px solid #4da6ff;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4da6ff;
+    width: 100%;
+    max-width: 400px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 操作エリア（連打ボタンとリセットボタンを分ける場合） */
+.mokujin-action-area {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+}
+
+/* 連打ボタン（大きく中央に） */
+.mokujin-punch-btn {
+    flex: 1;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #e74c3c; /* 赤系で攻撃感を出す */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+}
+
+.mokujin-punch-btn:active {
+    transform: scale(0.97);
+}
+
+.mokujin-punch-btn:disabled {
+    background-color: #444;
+    color: #888;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* もう一度ボタン（右側に独立させる） */
+.mokujin-reset-btn {
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #666;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.mokujin-reset-btn:hover {
+    background-color: #333;
+    border-color: #888;
+}
