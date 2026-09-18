@@ -74,6 +74,19 @@
             <h3>🎲 本日のシャキ待ち・ジョブガチャ</h3>
             <p>どのジョブでコンテンツ申請するか迷ったら、運命に委ねてみよう！</p>
             
+            <!-- 拡張パッケージ（進行度）による制限フィルター -->
+            <div style="margin-bottom: 15px;">
+                <label for="expansion-select" style="font-weight: bold; margin-right: 5px;">対象ジョブ制限：</label>
+                <select id="expansion-select" style="padding: 5px; border-radius: 4px;">
+                    <option value="dt" selected>🌟 すべてのジョブ (ALL / 黄金まで)</option>
+                    <option value="arr">🌱 新生エオルゼアのみ (Lv50)</option>
+                    <option value="hw">🛡️ 蒼天のイシュガルドまで (Lv60)</option>
+                    <option value="sb">⚔️ 紅蓮のリベレーターまで (Lv70)</option>
+                    <option value="shb">🔮 漆黒のヴィランズまで (Lv80)</option>
+                    <option value="ew">🌙 暁月のフィナーレまで (Lv90)</option>
+                </select>
+            </div>
+
             <button id="job-gacha-btn" class="minigame-btn" onclick="drawRandomJob()">運命のジョブを引く</button>
             
             <div id="job-gacha-result" class="minigame-result"></div>
@@ -153,36 +166,73 @@
             if (scoreSpan) scoreSpan.textContent = mokujinScore;
         }
 
-        /* --- ジョブガチャのロジック --- */
-        const allJobs = [
-            // タンク
-            "ナイト (PLD)", "戦士 (WAR)", "暗黒騎士 (DRK)", "ガンブレイカー (GNB)",
-            // ヒーラー
-            "白魔道士 (WHM)", "学者 (SCH)", "占星術師 (AST)", "賢者 (SGE)",
-            // Melee
-            "モンク (MNK)", "竜騎士 (DRG)", "忍者 (NIN)", "侍 (SAM)", "リーパー (RPR)", "ヴァイパー (VPR)",
-            // Ranged
-            "吟遊詩人 (BRD)", "機工士 (MCH)", "踊り子 (DNC)",
-            // Caster
-            "黒魔道士 (BLM)", "召喚士 (SMN)", "赤魔道士 (RDM)", "ピクトマンサー (PCT)"
-        ];
+        /* --- ジョブガチャのロジック（拡張パッケージ対応） --- */
+        const jobPools = {
+            arr: [
+                "ナイト (PLD)", "戦士 (WAR)", "白魔道士 (WHM)", "学者 (SCH)", 
+                "モンク (MNK)", "竜騎士 (DRG)", "忍者 (NIN)", "吟遊詩人 (BRD)", 
+                "黒魔道士 (BLM)", "召喚士 (SMN)"
+            ],
+            hw: [ // 蒼天で追加
+                "暗黒騎士 (DRK)", "占星術師 (AST)", "機工士 (MCH)"
+            ],
+            sb: [ // 紅蓮で追加
+                "侍 (SAM)", "赤魔道士 (RDM)"
+            ],
+            shb: [ // 漆黒で追加
+                "ガンブレイカー (GNB)", "踊り子 (DNC)"
+            ],
+            ew: [ // 暁月で追加
+                "リーパー (RPR)", "賢者 (SGE)"
+            ],
+            dt: [ // 黄金で追加
+                "ヴァイパー (VPR)", "ピクトマンサー (PCT)"
+            ]
+        };
+
+        // 選択された進行度までのジョブリストを累積して生成する関数
+        function getAvailableJobs(maxExpansion) {
+            let available = [];
+            const order = ["arr", "hw", "sb", "shb", "ew", "dt"];
+            
+            for (let i = 0; i < order.length; i++) {
+                const key = order[i];
+                if (jobPools[key]) {
+                    available = available.concat(jobPools[key]);
+                }
+                if (key === maxExpansion) break;
+            }
+            return available;
+        }
 
         function drawRandomJob() {
             const resultDiv = document.getElementById("job-gacha-result");
             const btn = document.getElementById("job-gacha-btn");
+            
+            // セレクトボックスから選択値を取得（デフォルトはすべての "dt"）
+            const selectElement = document.getElementById("expansion-select");
+            const currentExpansion = selectElement ? selectElement.value : "dt";
+            
+            // 進行度に応じたプールを取得
+            const currentJobs = getAvailableJobs(currentExpansion);
+
+            if (currentJobs.length === 0) {
+                resultDiv.textContent = "⚠️ 抽選できるジョブがありません";
+                return;
+            }
             
             btn.disabled = true;
             resultDiv.textContent = "シャカシャカシャカ……";
 
             let count = 0;
             const interval = setInterval(() => {
-                const randomTempJob = allJobs[Math.floor(Math.random() * allJobs.length)];
+                const randomTempJob = currentJobs[Math.floor(Math.random() * currentJobs.length)];
                 resultDiv.textContent = randomTempJob;
                 count++;
                 
                 if (count > 30) {
                     clearInterval(interval);
-                    const finalJob = allJobs[Math.floor(Math.random() * allJobs.length)];
+                    const finalJob = currentJobs[Math.floor(Math.random() * currentJobs.length)];
                     resultDiv.textContent = `🎯 運命のジョブ： 【 ${finalJob} 】`;
                     btn.disabled = false;
                 }
