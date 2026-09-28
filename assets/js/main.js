@@ -349,7 +349,7 @@ function renderCombos(allSkills, jobId) {
     }
 }
 
-function renderUpgrades(allSkills) {
+function renderUpgrades(allSkills, jobId) {
     const container = document.getElementById("upgrade-list");
     if (!container) return;
 
@@ -370,12 +370,17 @@ function renderUpgrades(allSkills) {
 
             let chain = [skill];
             let current = skill;
+            const visited = new Set([skill.id]);
 
             while (current.upgrades_to) {
-                const next = allSkills.find(s => s.id === current.upgrades_to);
+                const nextId = current.upgrades_to;
+                if (visited.has(nextId)) break;
+
+                const next = allSkills.find(s => s.id === nextId);
                 if (!next) break;
 
                 chain.push(next);
+                visited.add(nextId);
                 current = next;
             }
 
@@ -383,9 +388,22 @@ function renderUpgrades(allSkills) {
             div.className = "combo-item";
 
             div.innerHTML = chain.map((s, i) => {
-                return i === 0
-                    ? s.name
-                    : ` → ${s.name}`;
+                const isRoleSkill = currentJobData?.roleSkills?.some(rs => rs.id === s.id);
+                const roleFolder = currentJobData?.role || "common";
+
+                const imgPath = isRoleSkill
+                    ? `assets/images/common/${roleFolder}/${s.id}.png`
+                    : `assets/images/${jobId}/${s.id}.png`;
+
+                const icon = `
+                    <img src="${imgPath}"
+                        class="icon combo-icon"
+                        alt="${escapeHtml(s.name)}"
+                        title="${escapeHtml(s.name)}"
+                        onerror="this.onerror=null; this.src='assets/images/common/${s.id}.png';">
+                `;
+
+                return i === 0 ? icon : `<span class="arrow">→</span>${icon}`;
             }).join("");
 
             container.appendChild(div);
