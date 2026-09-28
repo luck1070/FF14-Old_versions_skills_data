@@ -214,6 +214,7 @@ function renderJobContent() {
     renderSkills(roleSkills, "class-skill-list", jobId, "role");
     renderSkills(jobSkills, "job-skill-list", jobId, "job");
     renderCombos([...roleSkills, ...jobSkills], jobId);
+    renderUpgrades([...roleSkills, ...jobSkills]);
 }
 
 // ✅ スキルカード（ソート条件を反映して描画）
@@ -345,6 +346,54 @@ function renderCombos(allSkills, jobId) {
 
     if (!hasCombo) {
         comboList.innerHTML = "<p class='no-data'>コンボ情報はありません。</p>";
+    }
+}
+
+function renderUpgrades(allSkills) {
+    const container = document.getElementById("upgrade-list");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const nonStarter = new Set();
+    allSkills.forEach(skill => {
+        if (skill.upgrades_to) {
+            nonStarter.add(skill.upgrades_to);
+        }
+    });
+
+    let hasUpgrade = false;
+
+    allSkills.forEach(skill => {
+        if (skill.upgrades_to && !nonStarter.has(skill.id)) {
+            hasUpgrade = true;
+
+            let chain = [skill];
+            let current = skill;
+
+            while (current.upgrades_to) {
+                const next = allSkills.find(s => s.id === current.upgrades_to);
+                if (!next) break;
+
+                chain.push(next);
+                current = next;
+            }
+
+            const div = document.createElement("div");
+            div.className = "combo-item";
+
+            div.innerHTML = chain.map((s, i) => {
+                return i === 0
+                    ? s.name
+                    : ` → ${s.name}`;
+            }).join("");
+
+            container.appendChild(div);
+        }
+    });
+
+    if (!hasUpgrade) {
+        container.innerHTML = "<p class='no-data'>強化情報はありません。</p>";
     }
 }
 
