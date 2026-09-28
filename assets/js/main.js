@@ -20,7 +20,7 @@ async function loadJobData(jobId) {
     try {
         const params = new URLSearchParams(window.location.search);
         const version = params.get("v") || "7.5";
-        const jsonPath = `data/skills-v${version}.json`; // 💡 パスを調整
+        const jsonPath = `data/skills-v${version}.json`;
 
         const res = await fetch(jsonPath);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -56,6 +56,90 @@ function triggerReRender() {
     if (currentJobData && currentJobId) {
         renderJobContent();
     }
+}
+
+/* =========================
+   ★ 共通カード生成（堅牢性を向上）
+========================= */
+function createSkillCard(skill, jobId, pathType = "job") {
+    const div = document.createElement("div");
+    div.className = "skill";
+
+    const rubyText = skill.kana || skill.ruby;
+    const nameHtml = rubyText
+        ? `<ruby>${escapeHtml(skill.name)}<rt>${escapeHtml(rubyText)}</rt></ruby>`
+        : escapeHtml(skill.name);
+
+    const levelText = skill.level ? `習得Lv.${skill.level}` : "";
+
+    let typeLabel = "";
+    if (skill.type === "gcd") {
+        typeLabel = `<span class="type gcd">WS</span>`;
+    } else if (skill.type === "ogcd") {
+        typeLabel = `<span class="type ogcd">アビ</span>`;
+    }
+
+    const recastText = skill.recast ? `<span class="recast">CT:${skill.recast}</span>` : "";
+    const mpText = skill.mp_cost !== undefined ? `<div class="skill-extra">MP：${skill.mp_cost}</div>` : "";
+    const desc = escapeHtml(skill.description || "").replace(/\n/g, "<br>");
+
+    let rangeDisplay = "";
+    if (skill.range !== undefined) {
+        const rangeVal = skill.range === 0 ? "自身" : `${skill.range}m`;
+        const rangeClass = (skill.range === 0 || skill.range <= 3) ? "melee-range" : "long-range";
+        rangeDisplay = `<div class="skill-extra ${rangeClass}">🡨🡪 射程：${rangeVal}</div>`;
+    }
+
+    let aoeDisplay = "";
+    if (skill.aoe_radius !== undefined) {
+        if (skill.aoe_radius === 0) {
+            aoeDisplay = `<div class="skill-extra aoe-single">◦ 範囲：単体</div>`;
+        } else {
+            aoeDisplay = `<div class="skill-extra aoe-badge">◯ 範囲：${skill.aoe_radius}m</div>`;
+        }
+    }
+
+    // 1. スキルデータ自体に画像パスが指定されていればそれを最優先
+    let imagePath = skill.image;
+
+    if (!imagePath) {
+        // 2. pathType に応じて安全に切り替え
+        if (pathType === "role") {
+            const roleFolder = currentJobData?.role || "common";
+            imagePath = `assets/images/common/${roleFolder}/${skill.id}.png`;
+        } else if (pathType === "special") {
+            // 特殊システム用（必要に応じてジョブ固有または専用フォルダへ）
+            imagePath = `assets/images/${jobId}/${skill.id}.png`;
+        } else {
+            // デフォルト（job）
+            imagePath = `assets/images/${jobId}/${skill.id}.png`;
+        }
+    }
+
+    div.innerHTML = `
+        <img src="${imagePath}" class="icon" alt="${escapeHtml(skill.name)}" title="${escapeHtml(skill.name)}"
+            onerror="handleImageError(this, '${skill.id}')">
+        <div class="skill-name">${nameHtml}</div>
+        <div class="skill-level">${levelText}</div>
+        <div class="skill-meta">${typeLabel}${recastText}</div>
+        ${rangeDisplay}
+        ${aoeDisplay}
+        ${mpText}
+        <div class="skill-desc">${desc}</div>
+    `;
+
+    return div;
+}
+
+/* 画像読み込み失敗時のフォールバック処理を安全に行う関数 */
+function handleImageError(imgEl, skillId) {
+    if (imgEl.dataset.fallbackTried) {
+        // すでに共通フォルダも失敗している場合はプレースホルダーに差し替え
+        imgEl.src = "assets/images/common/placeholder.png";
+        return;
+    }
+    imgEl.dataset.fallbackTried = "true";
+    imgEl.src = `assets/images/common/${skillId}.png`;
 }
 
 // 描画の振り分けとコントロール値の取得
@@ -114,7 +198,12 @@ function renderJobContent() {
             if (job.specialSystem.skills && job.specialSystem.skills.length > 0) {
                 const subGrid = document.createElement("div");
                 subGrid.className = "grid";
-                // 必要に応じて個別カード生成ロジックを追加
+                
+                // 特殊システムのスキルカードを安全に生成して追加
+                job.specialSystem.skills.forEach(skill => {
+                    subGrid.appendChild(createSkillCard(skill, jobId, "special"));
+                });
+                
                 specialContentEl.appendChild(subGrid);
             }
         }
@@ -122,13 +211,13 @@ function renderJobContent() {
         specialSection.style.display = "none";
     }
 
-    renderSkills(roleSkills, "class-skill-list", jobId);
-    renderSkills(jobSkills, "job-skill-list", jobId);
+    renderSkills(roleSkills, "class-skill-list", jobId, "role");
+    renderSkills(jobSkills, "job-skill-list", jobId, "job");
     renderCombos([...roleSkills, ...jobSkills], jobId);
 }
 
 // ✅ スキルカード（ソート条件を反映して描画）
-function renderSkills(skills, containerId, jobId) {
+function renderSkills(skills, containerId, jobId, pathType) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
@@ -160,69 +249,10 @@ function renderSkills(skills, containerId, jobId) {
         return levelDiff;
     });
 
-    const createSkillCard = (skill) => {
-        const div = document.createElement("div");
-        div.className = "skill";
-
-        const rubyText = skill.kana || skill.ruby;
-        const nameHtml = rubyText
-            ? `<ruby>${escapeHtml(skill.name)}<rt>${escapeHtml(rubyText)}</rt></ruby>`
-            : escapeHtml(skill.name);
-
-        const levelText = skill.level ? `習得Lv.${skill.level}` : "";
-
-        let typeLabel = "";
-        if (skill.type === "gcd") {
-            typeLabel = `<span class="type gcd">WS</span>`;
-        } else if (skill.type === "ogcd") {
-            typeLabel = `<span class="type ogcd">アビ</span>`;
-        }
-
-        const recastText = skill.recast ? `<span class="recast">CT:${skill.recast}</span>` : "";
-        const mpText = skill.mp_cost !== undefined ? `<div class="skill-extra">MP：${skill.mp_cost}</div>` : "";
-        const desc = escapeHtml(skill.description || "").replace(/\n/g, "<br>");
-
-        let rangeDisplay = "";
-        if (skill.range !== undefined) {
-            const rangeVal = skill.range === 0 ? "自身" : `${skill.range}m`;
-            const rangeClass = (skill.range === 0 || skill.range <= 3) ? "melee-range" : "long-range";
-            rangeDisplay = `<div class="skill-extra ${rangeClass}">🡨🡪 射程：${rangeVal}</div>`;
-        }
-
-        let aoeDisplay = "";
-        if (skill.aoe_radius !== undefined) {
-            if (skill.aoe_radius === 0) {
-                aoeDisplay = `<div class="skill-extra aoe-single">◦ 範囲：単体</div>`;
-            } else {
-                aoeDisplay = `<div class="skill-extra aoe-badge">◯ 範囲：${skill.aoe_radius}m</div>`;
-            }
-        }
-
-        let imagePath = "";
-        if (containerId === "class-skill-list") {
-            const roleFolder = currentJobData?.role || "common";
-            imagePath = `assets/images/common/${roleFolder}/${skill.id}.png`;
-        } else {
-            imagePath = `assets/images/${jobId}/${skill.id}.png`;
-        }
-
-        div.innerHTML = `
-            <img src="${imagePath}" class="icon" alt="${escapeHtml(skill.name)}" title="${escapeHtml(skill.name)}" onerror="this.onerror=null; this.src='assets/images/common/${skill.id}.png'">
-            <div class="skill-name">${nameHtml}</div>
-            <div class="skill-level">${levelText}</div>
-            <div class="skill-meta">${typeLabel}${recastText}</div>
-            ${rangeDisplay}
-            ${aoeDisplay}
-            ${mpText}
-            <div class="skill-desc">${desc}</div>
-        `;
-        return div;
-    };
-
     if (typeOrderOption === "pure-level") {
         const singleGrid = document.createElement("div");
         singleGrid.className = "grid";
-        sortedSkills.forEach(skill => singleGrid.appendChild(createSkillCard(skill)));
+        sortedSkills.forEach(skill => singleGrid.appendChild(createSkillCard(skill, jobId, pathType)));
         container.appendChild(singleGrid);
     } else {
         const isOgcdFirst = typeOrderOption === "ogcd-top";
@@ -232,14 +262,14 @@ function renderSkills(skills, containerId, jobId) {
         if (primarySkills.length > 0) {
             const primaryGrid = document.createElement("div");
             primaryGrid.className = "grid";
-            primarySkills.forEach(skill => primaryGrid.appendChild(createSkillCard(skill)));
+            primarySkills.forEach(skill => primaryGrid.appendChild(createSkillCard(skill, jobId, pathType)));
             container.appendChild(primaryGrid);
         }
 
         if (secondarySkills.length > 0) {
             const secondaryGrid = document.createElement("div");
             secondaryGrid.className = "grid";
-            secondarySkills.forEach(skill => secondaryGrid.appendChild(createSkillCard(skill)));
+            secondarySkills.forEach(skill => secondaryGrid.appendChild(createSkillCard(skill, jobId, pathType)));
             container.appendChild(secondaryGrid);
         }
     }
@@ -319,14 +349,13 @@ function renderCombos(allSkills, jobId) {
 }
 
 /* ==========================================
-    木人討滅戦（10秒連打チャレンジ）のロジック（修正版）
+   木人討滅戦（10秒連打チャレンジ）のロジック
 ========================================== */
 let isMokujinPlaying = false;
 let mokujinScore = 0;
 let mokujinTimeLeft = 10;
 let mokujinTimer = null;
 
-// ゲーム開始 / リセットを行う関数
 function startMokujinGame() {
     const punchBtn = document.getElementById("punch-btn");
     const resetBtn = document.getElementById("reset-btn");
@@ -334,7 +363,6 @@ function startMokujinGame() {
     const scoreSpan = document.getElementById("score");
     const timeLeftSpan = document.getElementById("time-left");
 
-    // 既にプレイ中の場合は、ボタンが押されたら「強制リセット（中断）」として扱う
     if (isMokujinPlaying) {
         clearInterval(mokujinTimer);
         isMokujinPlaying = false;
@@ -347,19 +375,17 @@ function startMokujinGame() {
         return;
     }
 
-    // 初期化 & ゲーム開始
     isMokujinPlaying = true;
     mokujinScore = 0;
     mokujinTimeLeft = 10;
 
-    if (punchBtn) punchBtn.disabled = false; // 連打ボタンを有効化
+    if (punchBtn) punchBtn.disabled = false;
     if (resetBtn) resetBtn.textContent = "リセット";
     
     if (scoreSpan) scoreSpan.textContent = mokujinScore;
     if (timeLeftSpan) timeLeftSpan.textContent = mokujinTimeLeft;
     if (resultBox) resultBox.textContent = "バトル中……！ひたすら連打！";
 
-    // タイマー開始
     if (mokujinTimer) clearInterval(mokujinTimer);
     mokujinTimer = setInterval(() => {
         mokujinTimeLeft--;
@@ -369,7 +395,6 @@ function startMokujinGame() {
             clearInterval(mokujinTimer);
             isMokujinPlaying = false;
             
-            // 連打ボタンを無効化（誤爆防止）
             if (punchBtn) punchBtn.disabled = true;
             if (resetBtn) resetBtn.textContent = "もう一度遊ぶ";
             
@@ -381,7 +406,6 @@ function startMokujinGame() {
     }, 1000);
 }
 
-// 連打ボタンが押されたときの処理
 function punchMokujin() {
     if (!isMokujinPlaying) return;
 
