@@ -1,49 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
-	loadJobList();
+    loadJobList();
 });
 
 async function loadJobList() {
-	try {
-		const res = await fetch("data/skills.json");
-		if (!res.ok) {
-			throw new Error(`HTTP error! status: ${res.status}`);
-		}
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const version = params.get("v") || "7.5";
+        const jsonPath = `data/skills-v${version}.json`; // 💡 パスを調整
 
-		const data = await res.json();
+        const res = await fetch(jsonPath);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-		const tank = document.getElementById("tank-list");
-		const healer = document.getElementById("healer-list");
-		const dps = document.getElementById("dps-list");
+        const data = await res.json();
+        const jobsData = data.jobs || data;
 
-		// リストの初期化（クリア）
-		if (tank) tank.innerHTML = "";
-		if (healer) healer.innerHTML = "";
-		if (dps) dps.innerHTML = "";
+        const containers = {
+            Tank: document.getElementById("tank-list"),
+            Healer: document.getElementById("healer-list"),
+            Melee: document.getElementById("melee-list"),
+            Ranged: document.getElementById("ranged-list"),
+            Caster: document.getElementById("caster-list")
+        };
 
-		Object.keys(data).forEach(key => {
-			const job = data[key];
+        Object.values(containers).forEach(el => {
+            if (el) el.innerHTML = "";
+        });
 
-			const link = document.createElement("a");
-			link.href = `job-detail.html?job=${key}`;
-			link.className = "job-card";
-			link.textContent = job.name;
+        Object.keys(jobsData).forEach(key => {
+            const job = jobsData[key];
 
-			const div = document.createElement("div");
-			div.appendChild(link);
+            const link = document.createElement("a");
+            // 💡 job-detail.html へパッチバージョンとジョブIDを引き継ぐ
+            link.href = `job-detail.html?v=${version}&job=${key}`;
+            link.className = "job-card";
 
-			// JSON側が role または class のどちらで定義されていても対応
-			const role = job.role || job.class;
+            const iconImg = `<img src="assets/images/icons/${key}.png" class="job-icon" alt="" onerror="this.style.display='none'">`;
+            link.innerHTML = `${iconImg}<span class="job-name">${escapeHtml(job.name)}</span>`;
 
-			if (role === "タンク" && tank) {
-				tank.appendChild(div);
-			} else if (role === "ヒーラー" && healer) {
-				healer.appendChild(div);
-			} else if (dps) {
-				dps.appendChild(div);
-			}
-		});
+            const div = document.createElement("div");
+            div.className = "job-card-wrapper";
+            div.appendChild(link);
 
-	} catch (err) {
-		console.error("ジョブ一覧の取得に失敗しました:", err);
-	}
+            const targetContainer = containers[job.role];
+            if (targetContainer) {
+                targetContainer.appendChild(div);
+            }
+        });
+
+    } catch (err) {
+        console.error("ジョブ一覧の取得に失敗しました:", err);
+    }
+}
+
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }
