@@ -4,7 +4,7 @@
         "role": "Tank",
         "jobSkills": [
             {
-                "id": "fast_blade",
+                "id": "Fast_Blade",
                 "name": "ファストブレード",
                 "level": 1,
                 "type": "gcd",
@@ -18,7 +18,7 @@
                 ]
             },
             {
-                "id": "fight_or_flight",
+                "id": "Fight_or_Flight",
                 "name": "ファイト・オア・フライト",
                 "level": 2,
                 "type": "ogcd",
