@@ -2014,6 +2014,7 @@
         "range": 25,
         "aoe_radius": 0,
         "description": "対象に土属性魔法攻撃。威力：140"
+        "upgrades_to": "stone_ii"
         },
         {
         "id": "cure",
