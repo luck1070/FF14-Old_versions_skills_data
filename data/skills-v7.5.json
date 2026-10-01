@@ -614,7 +614,7 @@
             "description": "対象に遠隔物理攻撃。\n威力：150\n追加効果：敵視アップ"
         },
         {
-            "id": "storm_path",
+            "id": "storm's_path",
             "name": "シュトルムヴィント",
             "level": 26,
             "type": "gcd",
@@ -692,7 +692,7 @@
             "description": "自身の周囲の敵に範囲物理攻撃。\n威力：160\n発動条件：「インナービースト」50"
         },
         {
-            "id": "storm_eye",
+            "id": "storm's_eye",
             "name": "シュトルムブレハ",
             "level": 50,
             "type": "gcd",
