@@ -505,3 +505,53 @@ rt {
     background-color: #333;
     border-color: #888;
 }
+
+/* ==========================================
+   ジョブ専用システム（ヘッダー内）のスタイル
+========================================== */
+.header-special-section {
+    margin-top: 14px;
+    max-width: 100%;
+}
+
+.job-top-special-card {
+    background: linear-gradient(135deg, rgba(30, 35, 45, 0.95), rgba(20, 24, 33, 0.95));
+    border: 1px solid rgba(212, 175, 55, 0.3); /* ゴールド系の落ち着いた枠線 */
+    border-left: 4px solid #d4af37; /* 左側にゴールドのアクセントライン */
+    border-radius: 6px;
+    padding: 14px 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.special-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.special-badge {
+    background-color: #d4af37;
+    color: #1a1a1a;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+}
+
+.special-title {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin: 0;
+    border-bottom: none; /* 共通のh2下線スタイルを打ち消す */
+    padding-bottom: 0;
+}
+
+.special-desc {
+    color: #cccccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+    white-space: pre-line;
+}
