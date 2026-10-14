@@ -189,17 +189,27 @@ function renderJobContent() {
     // ジョブ専用システムの表示・非表示切り替えと描画
     if (job.specialSystem && specialSection) {
         specialSection.style.display = "block";
-        if (specialTitleEl) specialTitleEl.textContent = job.specialSystem.title;
         
         if (specialContentEl) {
+            const titleText = escapeHtml(job.specialSystem.title || "ジョブ専用システム");
             const descHtml = escapeHtml(job.specialSystem.description || "").replace(/\n/g, "<br>");
-            specialContentEl.innerHTML = `<p class="special-desc">${descHtml}</p>`;
             
+            // ジョブ名直下に馴染むカード風デザインとしてHTMLを組み立て
+            specialContentEl.innerHTML = `
+                <div class="job-top-special-card">
+                    <div class="special-header">
+                        <span class="special-badge">固有システム</span>
+                        <h2 class="special-title">${titleText}</h2>
+                    </div>
+                    <p class="special-desc">${descHtml}</p>
+                </div>
+            `;
+            
+            // 専用システムに紐づくスキル（固有スキル）がある場合
             if (job.specialSystem.skills && job.specialSystem.skills.length > 0) {
                 const subGrid = document.createElement("div");
                 subGrid.className = "grid";
                 
-                // 特殊システムのスキルカードを安全に生成して追加
                 job.specialSystem.skills.forEach(skill => {
                     subGrid.appendChild(createSkillCard(skill, jobId, "special"));
                 });
