@@ -2012,7 +2012,7 @@
                 "mp_cost": 200,
                 "range": "25",
                 "aoe_radius": "0",
-                "description": "対象に土属性魔法攻撃。\n威力：140"
+                "description": "対象に土属性魔法攻撃。\n威力：140",
                 "upgrades_to": "stone_ii"
             },
             {
