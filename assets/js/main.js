@@ -108,10 +108,8 @@ function createSkillCard(skill, jobId, pathType = "job") {
             const roleFolder = currentJobData?.role || "common";
             imagePath = `assets/images/common/${roleFolder}/${skill.id}.png`;
         } else if (pathType === "special") {
-            // 特殊システム用（必要に応じてジョブ固有または専用フォルダへ）
             imagePath = `assets/images/${jobId}/${skill.id}.png`;
         } else {
-            // デフォルト（job）
             imagePath = `assets/images/${jobId}/${skill.id}.png`;
         }
     }
@@ -134,7 +132,6 @@ function createSkillCard(skill, jobId, pathType = "job") {
 /* 画像読み込み失敗時のフォールバック処理を安全に行う関数 */
 function handleImageError(imgEl, skillId) {
     if (imgEl.dataset.fallbackTried) {
-        // すでに共通フォルダも失敗している場合はプレースホルダーに差し替え
         imgEl.src = "assets/images/common/placeholder.png";
         return;
     }
@@ -164,6 +161,7 @@ function renderJobContent() {
 
     const roleSkills = job.roleSkills || []; 
     const jobSkills = job.jobSkills || []; 
+    const specialSkills = job.specialSystem?.skills || [];
 
     const hasAnySkills = roleSkills.length > 0 || jobSkills.length > 0;
 
@@ -174,11 +172,9 @@ function renderJobContent() {
         return;
     }
 
-    // 魔法要素は非表示
     if (magicTitleEl) magicTitleEl.style.display = "none";
     if (magicSkillListEl) magicSkillListEl.style.display = "none";
 
-    // 共通の表示処理
     if (roleTitleEl) roleTitleEl.style.display = "block";
     if (classSkillListEl) classSkillListEl.style.display = "flex";
     if (jobTitleEl) jobTitleEl.style.display = "block";
@@ -186,7 +182,6 @@ function renderJobContent() {
     if (comboTitleEl) comboTitleEl.style.display = "block";
     if (comboListEl) comboListEl.style.display = "block";
 
-    // ジョブ専用システムの表示・非表示切り替えと描画
     if (job.specialSystem && specialSection) {
         specialSection.style.display = "block";
         
@@ -194,7 +189,6 @@ function renderJobContent() {
             const titleText = escapeHtml(job.specialSystem.title || "ジョブ専用システム");
             const descHtml = escapeHtml(job.specialSystem.description || "").replace(/\n/g, "<br>");
             
-            // ジョブ名直下に馴染むカード風デザインとしてHTMLを組み立て
             specialContentEl.innerHTML = `
                 <div class="job-top-special-card">
                     <div class="special-header">
@@ -205,12 +199,11 @@ function renderJobContent() {
                 </div>
             `;
             
-            // 専用システムに紐づくスキル（固有スキル）がある場合
-            if (job.specialSystem.skills && job.specialSystem.skills.length > 0) {
+            if (specialSkills.length > 0) {
                 const subGrid = document.createElement("div");
                 subGrid.className = "grid";
                 
-                job.specialSystem.skills.forEach(skill => {
+                specialSkills.forEach(skill => {
                     subGrid.appendChild(createSkillCard(skill, jobId, "special"));
                 });
                 
@@ -223,8 +216,12 @@ function renderJobContent() {
 
     renderSkills(roleSkills, "class-skill-list", jobId, "role");
     renderSkills(jobSkills, "job-skill-list", jobId, "job");
-    renderCombos([...roleSkills, ...jobSkills], jobId);
-    renderUpgrades([...roleSkills, ...jobSkills]);
+
+    // すべてのスキルをまとめた配列（コンボ・アップグレード判定用）
+    const allSkills = [...roleSkills, ...jobSkills, ...specialSkills];
+
+    renderCombos(allSkills, jobId);
+    renderUpgrades(allSkills, jobId);
 }
 
 // ✅ スキルカード（ソート条件を反映して描画）
