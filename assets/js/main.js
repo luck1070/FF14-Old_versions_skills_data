@@ -132,6 +132,7 @@ function createSkillCard(skill, jobId, pathType = "job") {
 /* 画像読み込み失敗時のフォールバック処理を安全に行う関数 */
 function handleImageError(imgEl, skillId) {
     if (imgEl.dataset.fallbackTried) {
+        imgEl.onerror = null;
         imgEl.src = "assets/images/common/placeholder.png";
         return;
     }
@@ -179,8 +180,8 @@ function renderJobContent() {
     if (classSkillListEl) classSkillListEl.style.display = "flex";
     if (jobTitleEl) jobTitleEl.style.display = "block";
     if (jobSkillListEl) jobSkillListEl.style.display = "flex";
-    if (comboTitleEl) comboTitleEl.style.display = "block";
-    if (comboListEl) comboListEl.style.display = "block";
+    if (comboTitleEl) comboTitleEl.style.display = "none";
+    if (comboListEl) comboListEl.style.display = "none";
 
     if (job.specialSystem && specialSection) {
         specialSection.style.display = "block";
@@ -218,10 +219,10 @@ function renderJobContent() {
     renderSkills(jobSkills, "job-skill-list", jobId, "job");
 
     // すべてのスキルをまとめた配列（コンボ・アップグレード判定用）
-    const allSkills = [...roleSkills, ...jobSkills, ...specialSkills];
+    //const allSkills = [...roleSkills, ...jobSkills, ...specialSkills];
 
-    renderCombos(allSkills, jobId);
-    renderUpgrades(allSkills, jobId);
+    //renderCombos(allSkills, jobId);
+    //renderUpgrades(allSkills, jobId);
 }
 
 // ✅ スキルカード（ソート条件を反映して描画）
