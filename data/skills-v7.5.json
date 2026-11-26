@@ -9336,7 +9336,7 @@
                 "description": "対象に土属性魔法攻撃。\n威力：300\n発動条件：「アースエーテル」\n※このアクションはホットバーに登録することはできない。"
             },
             {
-                "id": "Emerald_Ruin_iii",
+                "id": "emerald_ruin_iii",
                 "name": "エメラルド・ルインガ",
                 "level": 54,
                 "type": "gcd",
